@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class Driver
 {
+	public static ArrayList<Player> players = new ArrayList<Player>();
+	public static Pot pot = new Pot();
+	
 	public static void main(String args[])
 	{
 		//Create a new deck
@@ -31,6 +34,7 @@ public class Driver
 		
 		//Demonstrate that the cards have actually been removed from the deck.
 		System.out.println(deck.toString());
+		
 		//Show Discard Functionality (From Hand)
 		Hand hand1 = hands.get(0);
 		System.out.println(hand1);
@@ -39,5 +43,17 @@ public class Driver
 		int discardID = in.nextInt();
 		hand1.discardCard(discardID);
 		System.out.println("After Discard: \n"+hand1.toString());
+		System.out.println("Discard Pile: ");
+		System.out.println(DiscardPile.pile.toString());
+		//Add another to the discard pile:
+		System.out.println("Enter ID to discard: ");
+		discardID = in.nextInt();
+		hand1.discardCard(discardID);
+		System.out.println("After Discard: \n"+hand1.toString());
+		System.out.println("Discard Pile: ");
+		System.out.println(DiscardPile.pile.toString());
+		
+		
+		
 	}
 }
