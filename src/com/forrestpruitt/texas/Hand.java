@@ -23,6 +23,7 @@ public class Hand
 			{
 				DiscardPile.pile.add(card);
 				hand.remove(card);
+				break;
 			}
 		}
 	}
