@@ -1,6 +1,7 @@
 package com.forrestpruitt.texas;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game 
@@ -26,9 +27,12 @@ public class Game
 	public static int betToCall = BIG_BLIND-SMALL_BLIND;
 	
 	//keep up with who gets the small/big blinds.
+	//Pick randomly at the start of each game.
 	//If smallBlind=1, player 1 has the small blind, and player 2 has the big blind.
 	//If smallBlind=2, player 2 has the small blind, and player 2 has the big blind.
-	int smallBlind = 1;
+	int smallBlind=1 + (int)(Math.random() * ((2 - 1) + 1));
+	
+	
 	Scanner in = new Scanner(System.in);
 	public Game(Player player1, Player player2)
 	{
