@@ -27,6 +27,10 @@ public class Hand
 			}
 		}
 	}
+	public ArrayList<Card> getCards()
+	{
+		return hand;
+	}
 	
 	public String toString()
 	{

@@ -5,7 +5,9 @@ public class Player {
 	private String name; //The Player's Name
 	private Hand hand; //The Player's Hand
 	private int id; //Unique ID for player
+	private int numOfWins;
 	
+	public int totalAmountBet;
 	
 	public Player(int startingChips, String playerName, int id)
 	{
@@ -31,6 +33,10 @@ public class Player {
 	{
 		this.hand = hand;
 	}
+	public Hand getHand()
+	{
+		return this.hand;
+	}
 	
 	public void winChips(int chipsWon)
 	{
@@ -44,13 +50,23 @@ public class Player {
 	 */
 	public boolean betChips(int chipsToBet)
 	{
-		if(numOfChips >= numOfChips)
+		if(numOfChips >= chipsToBet)
 		{
+			Game.chipsInPot += chipsToBet;
 			this.numOfChips -= chipsToBet;
 			return true;
 		}
 		else
 			return false;
+	}
+	
+	public void winGame()
+	{
+		numOfWins++;
+	}
+	public int getWins()
+	{
+		return numOfWins;
 	}
 	
 }
