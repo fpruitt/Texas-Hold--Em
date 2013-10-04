@@ -39,6 +39,7 @@ public class Game
 		//Creates and shuffles a deck.
 		deck = new Deck();
 		deck.shuffle();
+		SoundPlayer.playSound(SoundPlayer.sound_shuffle);
 		
 		//Assign this round's players. Assumes two players, as stated in requirements.
 		this.player1 = player1;
@@ -82,6 +83,8 @@ public class Game
 			}
 			player1TotalBet+=SMALL_BLIND;
 			player2TotalBet+=BIG_BLIND;
+			SoundPlayer.playSound(SoundPlayer.sound_betting);
+			SoundPlayer.playSound(SoundPlayer.sound_betting);
 		}
 		else
 		{
@@ -103,6 +106,8 @@ public class Game
 			}
 			player1TotalBet+=BIG_BLIND;
 			player2TotalBet+=SMALL_BLIND;
+			SoundPlayer.playSound(SoundPlayer.sound_betting);
+			SoundPlayer.playSound(SoundPlayer.sound_betting);
 		}
 		
 		System.out.println("The pot currently contains "+chipsInPot);
@@ -150,6 +155,8 @@ public class Game
 		}
 		
 		//THE FLOP HAPPENS HERE
+		
+		SoundPlayer.playSound(SoundPlayer.sound_flop);
 		
 		//Deal 1 'hand' of 3 cards. Add these to the community pool.
 		ArrayList<Hand> tempHand = deck.deal(3, 1);
@@ -204,7 +211,8 @@ public class Game
 		}
 		
 		
-		//THE RUN HAPPENS HERE
+		//THE Turn HAPPENS HERE
+		SoundPlayer.playSound(SoundPlayer.sound_turn);
 		
 		//Deal in the fourth community card.
 		tempHand = deck.deal(1, 1);
@@ -212,7 +220,7 @@ public class Game
 		communityCards.add(cards.get(0));
 		
 
-		System.out.println("The Run!");
+		System.out.println("The Turn!");
 		printCommunityCards(communityCards);
 		printChipTotal(player1,player2);
 		System.out.println("Starting Round 3...");
@@ -255,6 +263,8 @@ public class Game
 		
 		
 		//THE RIVER HAPPENS HERE
+		
+		SoundPlayer.playSound(SoundPlayer.sound_river);
 		
 		System.out.println("The River!");
 		tempHand = deck.deal(1, 1);

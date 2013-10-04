@@ -48,6 +48,7 @@ public class Turn {
 			//Code for calling.
 			System.out.println(player.getName()+" Is calling. This adds "+amountToCall+"To the pot.");
 			player.betChips(amountToCall);
+			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
 			Game.betToCall = 0;
 			return 0;
@@ -68,7 +69,12 @@ public class Turn {
 			
 			//Place Bet
 			System.out.println(player.getName()+" is betting "+betAmount);
+			if(betAmount == player.getNumOfChips())
+			{
+				System.out.println(player.getName()+" is going all in!");
+			}
 			player.betChips(betAmount);
+			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			
 			//Adjust the new amount the next player needs to call.
 			Game.betToCall = betAmount - amountToCall;
@@ -85,9 +91,8 @@ public class Turn {
 		}
 		else if(answer == 3)
 		{
-			//Human player loses, return 2 for Computer Win.
-			//Add coins to player's total
-			player.winChips(Game.chipsInPot);
+			opponent.winChips(Game.chipsInPot);
+			SoundPlayer.playSound(SoundPlayer.sound_fold);
 			return -1;
 		}
 		
