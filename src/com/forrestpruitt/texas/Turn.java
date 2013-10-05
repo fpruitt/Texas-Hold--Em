@@ -46,7 +46,7 @@ public class Turn {
 		if(answer == 0)
 		{
 			//Code for calling.
-			System.out.println(player.getName()+" Is calling. This adds "+amountToCall+"To the pot.");
+			System.out.println(player.getName()+" Is calling. This adds "+amountToCall+" to the pot.");
 			player.betChips(amountToCall);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
