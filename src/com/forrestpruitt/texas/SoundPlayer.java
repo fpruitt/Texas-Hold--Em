@@ -15,7 +15,7 @@ public class SoundPlayer
 	
 	//Set up the audio files to be used
 	//Loads them into memory ready to be played by SoundPlayer.playSound();
-	public static final File sound_betting = new File("sounds/betting");
+	public static final File sound_betting = new File("sounds/betting.wav");
 	public static final File sound_bonusEnd = new File("sounds/bonusEnd.wav");
 	public static final File sound_shuffle = new File("sounds/shuffle.wav");
 	public static final File sound_cardFanning = new File("sounds/cardFanning.wav");
