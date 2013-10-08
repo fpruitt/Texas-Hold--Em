@@ -13,16 +13,16 @@ public class Deck
 	
 	public Deck()
 	{
-		int total = 0;
+		int total = 0; //To pair cards with images, which are numbered 1-52.png
 		//Fill the deck up with cards
 		for(Suit suit : Suit.values())
 		{
 			for(Rank rank : Rank.values())
 			{
 				Card newCard = new Card(rank,suit,total);
+				newCard.setURL(total+1);
 				deck.add(newCard);
 				total++;
-				System.out.println(newCard);
 			}
 		}
 	}

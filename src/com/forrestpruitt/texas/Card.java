@@ -6,6 +6,7 @@ public class Card implements Comparable
 	private final Suit suit;
 	private final Rank rank;
 	private final int id;
+	private String imageURL ="images/";
 	
 	//Every card has a suit of one of these.
 	public enum Suit
@@ -16,7 +17,7 @@ public class Card implements Comparable
 	//Every card has a rank of one of these.
 	public enum Rank
 	{
-		TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
+		ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO;
 	}
 	
 	/**
@@ -74,5 +75,13 @@ public class Card implements Comparable
 		int thisCardRank  = this.getRank().ordinal();
 		int otherCardRank = otherCard.getRank().ordinal();
 		return thisCardRank - otherCardRank;
+	}
+	public void setURL(int id)
+	{
+		imageURL=imageURL+Integer.toString(id)+".png";
+	}
+	public String getURL()
+	{
+		return imageURL;
 	}
 }
