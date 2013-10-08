@@ -15,6 +15,7 @@ public class Driver
 	
 	public static void main(String args[])
 	{
+		/*
 		Card aCard = new Card(Rank.TWO, Suit.SPADE, 0);
 		Card bCard = new Card(Rank.ACE, Suit.HEART, 1);
 		Card cCard = new Card(Rank.FOUR, Suit.CLUB, 2);
@@ -31,8 +32,8 @@ public class Driver
 		PokerHandEvaluator evaluator = new PokerHandEvaluator(aCardList);
 
 		System.out.println(evaluator);
-
-		/*
+		*/
+		
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter your name: ");
 		String playerName = in.nextLine();
@@ -123,14 +124,14 @@ public class Driver
 			Game.chipsInPot = 0;
 			Game.betToCall = 0;
 		}
-		*/
+		
 	}
-	/*
+	
 	private static void printStats(Player player, int gamesPlayed)
 	{
 		System.out.println("Wins: "+ player.getWins());
 		System.out.println("Losses: "+ (gamesPlayed - player.getWins()));
 		System.out.println("Win Percentage: "+Math.round((player.getWins()/gamesPlayed))+"%");
 	}
-	*/
+	
 }

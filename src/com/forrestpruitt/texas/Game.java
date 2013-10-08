@@ -50,10 +50,10 @@ public class Game
 		
 		//Assign Hands to Players
 		this.player1.setHand(hands.get(0));
-		this.player1.addToCardPool(this.player1.getHand().getCards());
+		//this.player1.addToCardPool(this.player1.getHand().getCards());
 
 		this.player2.setHand(hands.get(1));
-		this.player2.addToCardPool(this.player2.getHand().getCards());
+		//this.player2.addToCardPool(this.player2.getHand().getCards());
 	}
 	public int StartGameLoop()
 	{
@@ -317,8 +317,47 @@ public class Game
 		//DECIDE WHO WINS HERE
 		//If computer has better hand, add a win for the computer(player2).
 		//If player has best hand, add a win for the player (player1)
+
+		ArrayList<Card> player1Hand = player1.getHand().getCards();
+		for(Card card: communityCards)
+		{
+			player1Hand.add(card);
+		}
 		
+
+		ArrayList<Card> player2Hand = player2.getHand().getCards();
+		for(Card card: communityCards)
+		{
+			player2Hand.add(card);
+		}
 		
+		PokerHandEvaluator evaluator = new PokerHandEvaluator(player1Hand);
+		PokerHandEvaluator evaluator2 = new PokerHandEvaluator(player2Hand);
+		System.out.println("Player 1's Best Hand: ");
+		int player1Value = evaluator.getHandValue();
+		int player2Value = evaluator2.getHandValue();
+		System.out.println(evaluator.getBestHand());
+		System.out.println("Player 2's Hand: ");
+		System.out.println(evaluator2.getBestHand());
+		if(player1Value > player2Value)
+		{
+			System.out.println(player1.getName()+" Wins!");
+			player1.winChips(chipsInPot);
+			chipsInPot = 0;
+		}
+		else if(player1Value == player2Value)
+		{
+			//Fill in tie hand condition here
+			//Get the high card
+			//If high cards are the same,
+			//A tie has occured. Split the pot.
+		}
+		else
+		{
+			System.out.println(player2.getName()+" Wins!");
+			player2.winChips(chipsInPot);
+			chipsInPot = 0;
+		}
 		//Exit Successfully
 		return 0;
 		
