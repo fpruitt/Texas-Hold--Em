@@ -1,11 +1,8 @@
 package com.forrestpruitt.texas;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 import com.forrestpruitt.texas.Card.Rank;
 import com.forrestpruitt.texas.Card.Suit;
@@ -25,6 +22,7 @@ public class Deck
 				Card newCard = new Card(rank,suit,total);
 				deck.add(newCard);
 				total++;
+				System.out.println(newCard);
 			}
 		}
 	}
