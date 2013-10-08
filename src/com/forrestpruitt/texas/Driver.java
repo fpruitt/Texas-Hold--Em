@@ -4,13 +4,35 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.forrestpruitt.texas.Card.Rank;
+import com.forrestpruitt.texas.Card.Suit;
+
+import java.util.Collections;
+
 public class Driver
 {
 	public static ArrayList<Player> players = new ArrayList<Player>();
 	
 	public static void main(String args[])
 	{
-		
+		Card aCard = new Card(Rank.TWO, Suit.SPADE, 0);
+		Card bCard = new Card(Rank.ACE, Suit.HEART, 1);
+		Card cCard = new Card(Rank.FOUR, Suit.CLUB, 2);
+		Card dCard = new Card(Rank.FIVE, Suit.SPADE, 3);
+		Card eCard = new Card(Rank.SIX, Suit.SPADE, 4);
+		Card fCard = new Card(Rank.SEVEN, Suit.CLUB, 5);
+		Card gCard = new Card(Rank.ACE, Suit.DIAMOND, 6);
+
+		ArrayList<Card> aCardList = new ArrayList<Card>();
+		aCardList.add(aCard); aCardList.add(bCard); aCardList.add(cCard); 
+		aCardList.add(dCard); aCardList.add(eCard); aCardList.add(fCard); 
+		aCardList.add(gCard); 
+
+		PokerHandEvaluator evaluator = new PokerHandEvaluator(aCardList);
+
+		System.out.println(evaluator);
+
+		/*
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter your name: ");
 		String playerName = in.nextLine();
@@ -100,13 +122,15 @@ public class Driver
 			//Reset static variables
 			Game.chipsInPot = 0;
 			Game.betToCall = 0;
-			
 		}
+		*/
 	}
+	/*
 	private static void printStats(Player player, int gamesPlayed)
 	{
 		System.out.println("Wins: "+ player.getWins());
 		System.out.println("Losses: "+ (gamesPlayed - player.getWins()));
 		System.out.println("Win Percentage: "+Math.round((player.getWins()/gamesPlayed))+"%");
 	}
+	*/
 }

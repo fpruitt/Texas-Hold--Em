@@ -50,8 +50,10 @@ public class Game
 		
 		//Assign Hands to Players
 		this.player1.setHand(hands.get(0));
+		this.player1.addToCardPool(this.player1.getHand().getCards());
+
 		this.player2.setHand(hands.get(1));
-		
+		this.player2.addToCardPool(this.player2.getHand().getCards());
 	}
 	public int StartGameLoop()
 	{

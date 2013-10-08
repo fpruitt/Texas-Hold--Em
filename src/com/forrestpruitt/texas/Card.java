@@ -1,6 +1,7 @@
 package com.forrestpruitt.texas;
+import java.util.Collections;
 
-public class Card
+public class Card implements Comparable
 {
 	private final Suit suit;
 	private final Rank rank;
@@ -15,7 +16,7 @@ public class Card
 	//Every card has a rank of one of these.
 	public enum Rank
 	{
-		TWO, THREE, FOUR, FIVE, SIX,SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
+		TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
 	}
 	
 	/**
@@ -60,5 +61,18 @@ public class Card
 	public String toString()
 	{
 		return this.rank+" of "+this.suit+"S, with ID="+this.id;
+	}
+	public int compareTo(Card otherCard)
+	{
+		int thisCardRank  = this.getRank().ordinal();
+		int otherCardRank = otherCard.getRank().ordinal();
+		return thisCardRank - otherCardRank;
+	}
+	public int compareTo(Object otherObject)
+	{
+		Card otherCard = (Card)otherObject;
+		int thisCardRank  = this.getRank().ordinal();
+		int otherCardRank = otherCard.getRank().ordinal();
+		return thisCardRank - otherCardRank;
 	}
 }
