@@ -175,19 +175,6 @@ public class PokerHandEvaluator
 	}
 	public String getBestHand()
 	{
-		String maxHand = pokerHandList.get(0).toString();
-		int maxHandValue = 0;
-		
-		for(int i = 0; i < 21; i++)
-		{
-			if(pokerHandList.get(i).getHandType().ordinal() > maxHandValue)
-			{
-				maxHandValue = pokerHandList.get(i).getHandType().ordinal();
-				maxHand = pokerHandList.get(i).getHandType().toString();
-				
-			}
-			
-		}
-		return maxHand;
+		return pokerHandList(pokerHandList.size()-1);
 	}
 }
