@@ -169,8 +169,8 @@ public class Driver
 	{
 		System.out.println("> " + "Wins: "+ player.getWins());
 		System.out.println("> " + "Losses: "+ (gamesPlayed - player.getWins()));
-		//Currently rounds to nearest int. =(
-		System.out.println("> " + "Win Percentage: "+Math.round((player.getWins()/gamesPlayed))+"%");
+		//Rounds to nearest int
+		System.out.println("> " + "Win Percentage: "+Math.round(((double)player.getWins()/gamesPlayed)*100)+"%");
 	}
 	
 }

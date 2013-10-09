@@ -37,7 +37,7 @@ public class TurnComputer extends Turn
 		{
 			//System.out.println("0 to call, 1 to bet, 2 to check, 3 to fold");
 			//Computer gives answer here
-			if(/*chanceToFold > .7 && */player.getHand().getCards().size() > 5)
+			if(chanceToFold > .7 && player.getHand().getCards().size() > 2)
 			{
 				answer = 3;
 			}
