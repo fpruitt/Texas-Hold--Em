@@ -160,7 +160,7 @@ public class Driver
 			
 			//Reset static variables
 			Game.chipsInPot = 0;
-			Game.betToCall = 0;
+			//Game.betToCall = 0;
 		}
 		
 	}

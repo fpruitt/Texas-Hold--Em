@@ -24,7 +24,7 @@ public class Game
 	
 	//betToCall holds the number of chips required to add in order to call for the next player.
 	//The initial bet to call is the difference between the big blind and the small blind
-	public static int betToCall = BIG_BLIND-SMALL_BLIND;
+	//public static int betToCall = BIG_BLIND-SMALL_BLIND;
 	
 	//keep up with who gets the small/big blinds.
 	//Pick randomly at the start of each game.
@@ -385,6 +385,9 @@ public class Game
 			chipsInPot = 0;
 			return 2;
 		}
+
+		player1.clearTotalBetThisRound();
+		player2.clearTotalBetThisRound();
 
 		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 

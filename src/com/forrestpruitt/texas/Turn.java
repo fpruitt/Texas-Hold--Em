@@ -17,7 +17,12 @@ public class Turn {
 	public int takeTurn()
 	{
 		//Determine the amount needed to call
-		int amountToCall = Game.betToCall;
+		//int amountToCall = Game.betToCall;
+		int amountToCall = opponent.getTotalBetThisRound() - player.getTotalBetThisRound();
+		if(amountToCall < 0)
+		{
+			amountToCall = 0;
+		}
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -52,7 +57,7 @@ public class Turn {
 			}
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
-			Game.betToCall = 0;
+			//Game.betToCall = 0;
 			return 0;
 		}
 		else if(answer == 1)
@@ -79,7 +84,7 @@ public class Turn {
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			
 			//Adjust the new amount the next player needs to call.
-			Game.betToCall = betAmount - amountToCall;
+			//Game.betToCall = betAmount - amountToCall;
 			
 		}
 		else if(answer == 2)
@@ -87,7 +92,7 @@ public class Turn {
 			//ADD CHECKING OPTION HERE.
 			
 			//If you can get here, you SHOULD be able to always pass this assertation.
-			assert(Game.betToCall == 0);
+			//assert(Game.betToCall == 0);
 			return 0;
 			
 		}

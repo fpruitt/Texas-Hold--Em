@@ -8,13 +8,14 @@ public class Player {
 	private int id; //Unique ID for player
 	private int numOfWins;
 	
-	public int totalAmountBet;
+	public int totalBetThisRound;
 	
 	public Player(int startingChips, String playerName, int id)
 	{
 		this.numOfChips = startingChips;
 		this.name=playerName;
 		this.id = id;
+		totalBetThisRound = 0;
 	}
 	
 	public String getName()
@@ -53,6 +54,8 @@ public class Player {
 	{
 		if(numOfChips >= chipsToBet)
 		{
+			totalBetThisRound += chipsToBet;
+
 			Game.chipsInPot += chipsToBet;
 			this.numOfChips -= chipsToBet;
 			return true;
@@ -68,5 +71,15 @@ public class Player {
 	public int getWins()
 	{
 		return numOfWins;
+	}
+
+	public int getTotalBetThisRound()
+	{
+		return totalBetThisRound;
+	}
+
+	public void clearTotalBetThisRound()
+	{
+		totalBetThisRound = 0;
 	}
 }
