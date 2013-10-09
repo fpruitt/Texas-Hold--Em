@@ -7,7 +7,6 @@ public class Player {
 	private Hand hand; //The Player's Hand
 	private int id; //Unique ID for player
 	private int numOfWins;
-	private ArrayList<Card> cardPool; //The player's hand + community cards
 	
 	public int totalAmountBet;
 	
@@ -69,28 +68,5 @@ public class Player {
 	public int getWins()
 	{
 		return numOfWins;
-	}
-
-	public void addToCardPool(ArrayList<Card> cards)
-	{
-		for(Card card: cards)
-		{
-			cardPool.add(card);
-		}
-	}
-
-	public void addToCardPool(Card card)
-	{
-		cardPool.add(card);
-	}
-	
-	public ArrayList<Card> getCardPool()
-	{
-		return cardPool;
-	}
-
-	public void emptyCardPool()
-	{
-		cardPool.clear();
 	}
 }

@@ -17,7 +17,7 @@ public class Card implements Comparable
 	//Every card has a rank of one of these.
 	public enum Rank
 	{
-		ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO;
+		TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
 	}
 	
 	/**
@@ -63,12 +63,11 @@ public class Card implements Comparable
 	{
 		return this.rank+" of "+this.suit+"S, with ID="+this.id;
 	}
-	public int compareTo(Card otherCard)
-	{
-		int thisCardRank  = this.getRank().ordinal();
-		int otherCardRank = otherCard.getRank().ordinal();
-		return thisCardRank - otherCardRank;
-	}
+
+	/**
+	* @param otherObject, the (Card)object to compare with this one
+	* @return an int, positive if this card > otherCard, 0 if equal, negative.
+	*/
 	public int compareTo(Object otherObject)
 	{
 		Card otherCard = (Card)otherObject;

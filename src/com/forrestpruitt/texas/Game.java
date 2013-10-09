@@ -50,10 +50,8 @@ public class Game
 		
 		//Assign Hands to Players
 		this.player1.setHand(hands.get(0));
-		//this.player1.addToCardPool(this.player1.getHand().getCards());
 
 		this.player2.setHand(hands.get(1));
-		//this.player2.addToCardPool(this.player2.getHand().getCards());
 	}
 	public int StartGameLoop()
 	{
@@ -334,18 +332,21 @@ public class Game
 		PokerHandEvaluator evaluator = new PokerHandEvaluator(player1Hand);
 		PokerHandEvaluator evaluator2 = new PokerHandEvaluator(player2Hand);
 		System.out.println("Player 1's Best Hand: ");
-		int player1Value = evaluator.getHandValue();
-		int player2Value = evaluator2.getHandValue();
+		//int player1Value = evaluator.getHandValue();
+		//int player2Value = evaluator2.getHandValue();
+		System.out.println(evaluator.getBestHand().getHandType());
 		System.out.println(evaluator.getBestHand());
-		System.out.println("Player 2's Hand: ");
+
+		System.out.println("Player 2's Best Hand: ");
+		System.out.println(evaluator2.getBestHand().getHandType());
 		System.out.println(evaluator2.getBestHand());
-		if(player1Value > player2Value)
+		if(evaluator.compareTo(evaluator2) > 0)
 		{
 			System.out.println(player1.getName()+" Wins!");
 			player1.winChips(chipsInPot);
 			chipsInPot = 0;
 		}
-		else if(player1Value == player2Value)
+		else if(evaluator.compareTo(evaluator2) == 0)
 		{
 			//Fill in tie hand condition here
 			//Get the high card

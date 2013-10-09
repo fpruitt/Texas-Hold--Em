@@ -160,34 +160,14 @@ public class PokerHandEvaluator
 		+ ", " + pokerHandList.get(20).getHandType();
 
 	}
-	public int getHandValue()
+
+	public PokerHand getBestHand()
 	{
-		int maxHandValue = 0;
-		for(int i = 0; i < 21; i++)
-		{
-			if(pokerHandList.get(i).getHandType().ordinal() > maxHandValue)
-			{
-				maxHandValue = pokerHandList.get(i).getHandType().ordinal();
-			}
-			
-		}
-		return maxHandValue;
+		return pokerHandList.get(pokerHandList.size()-1);
 	}
-	public String getBestHand()
+
+	public int compareTo(PokerHandEvaluator otherEvaluator)
 	{
-		String maxHand = pokerHandList.get(0).toString();
-		int maxHandValue = 0;
-		
-		for(int i = 0; i < 21; i++)
-		{
-			if(pokerHandList.get(i).getHandType().ordinal() > maxHandValue)
-			{
-				maxHandValue = pokerHandList.get(i).getHandType().ordinal();
-				maxHand = pokerHandList.get(i).getHandType().toString();
-				
-			}
-			
-		}
-		return maxHand;
+		return this.getBestHand().compareTo(otherEvaluator.getBestHand());
 	}
 }
