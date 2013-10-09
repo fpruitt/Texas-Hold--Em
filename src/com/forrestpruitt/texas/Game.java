@@ -348,10 +348,10 @@ public class Game
 		}
 		else if(evaluator.compareTo(evaluator2) == 0)
 		{
-			//Fill in tie hand condition here
-			//Get the high card
-			//If high cards are the same,
-			//A tie has occured. Split the pot.
+			System.out.println("It's a tie! Players split the pot!");
+			player1.winChips(chipsInPot/2);
+			player2.winChips(chipsInPot/2);
+			chipsInPot = 0;
 		}
 		else
 		{
@@ -359,6 +359,9 @@ public class Game
 			player2.winChips(chipsInPot);
 			chipsInPot = 0;
 		}
+
+		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+
 		//Exit Successfully
 		return 0;
 		

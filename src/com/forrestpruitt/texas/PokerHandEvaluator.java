@@ -90,7 +90,7 @@ public class PokerHandEvaluator
 		dynamicPokerHand.set(4, cardList.get(6));
 		PokerHand pokerHand11 = new PokerHand(dynamicPokerHand);
 		pokerHandsToReturn.add(pokerHand11);
-		System.out.println(pokerHand11);
+		//System.out.println(pokerHand11);
 
 		dynamicPokerHand.set(3, cardList.get(5));
 		PokerHand pokerHand12 = new PokerHand(dynamicPokerHand);

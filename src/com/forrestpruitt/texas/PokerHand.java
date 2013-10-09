@@ -195,7 +195,7 @@ public class PokerHand implements Comparable
 				//Find the rank of this PokerHand's pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(this.getCards().get(index).getRank()) == 2)
+					if(this.getNumOccurencesOfRank(this.getCards().get(index).getRank()) == 2)
 					{
 						thisPairRank = this.getCards().get(index).getRank();
 						found = true;
@@ -208,7 +208,7 @@ public class PokerHand implements Comparable
 				//Find the rank of the other PokerHand's pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 2)
+					if(otherPokerHand.getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 2)
 					{
 						otherPairRank = otherPokerHand.getCards().get(index).getRank();
 						found = true;
@@ -241,7 +241,7 @@ public class PokerHand implements Comparable
 				//Find the rank of this hand's first pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(this.getCards().get(index).getRank()) == 2)
+					if(this.getNumOccurencesOfRank(this.getCards().get(index).getRank()) == 2)
 					{
 						thisHighPairRank = this.getCards().get(index).getRank();
 						found = true;
@@ -254,7 +254,7 @@ public class PokerHand implements Comparable
 				//Find the rank of this hand's second pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(this.getCards().get(index).getRank()) == 2
+					if(this.getNumOccurencesOfRank(this.getCards().get(index).getRank()) == 2
 					   && this.getCards().get(index).getRank() != thisHighPairRank)
 					{
 						if(this.getCards().get(index).getRank().ordinal() > thisHighPairRank.ordinal())
@@ -276,7 +276,7 @@ public class PokerHand implements Comparable
 				//Find the rank of the other hand's first pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 2)
+					if(otherPokerHand.getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 2)
 					{
 						otherHighPairRank = otherPokerHand.getCards().get(index).getRank();
 						found = true;
@@ -289,7 +289,7 @@ public class PokerHand implements Comparable
 				//Find the rank of the other hand's second pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 2
+					if(otherPokerHand.getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 2
 					   && otherPokerHand.getCards().get(index).getRank() != otherHighPairRank)
 					{
 						if(otherPokerHand.getCards().get(index).getRank().ordinal() > otherHighPairRank.ordinal())
@@ -349,7 +349,7 @@ public class PokerHand implements Comparable
 				//Find the rank of the other PokerHand's pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 3)
+					if(otherPokerHand.getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 3)
 					{
 						otherTrioRank = otherPokerHand.getCards().get(index).getRank();
 						found = true;
@@ -403,7 +403,7 @@ public class PokerHand implements Comparable
 				//Find the rank of the other PokerHand's pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 3)
+					if(otherPokerHand.getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 3)
 					{
 						otherTrioRank = otherPokerHand.getCards().get(index).getRank();
 						found = true;
@@ -447,7 +447,7 @@ public class PokerHand implements Comparable
 				//Find the rank of the other PokerHand's pair
 				while(!found)
 				{
-					if(getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 4)
+					if(otherPokerHand.getNumOccurencesOfRank(otherPokerHand.getCards().get(index).getRank()) == 4)
 					{
 						otherQuartetRank = otherPokerHand.getCards().get(index).getRank();
 						found = true;
