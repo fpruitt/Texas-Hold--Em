@@ -55,8 +55,14 @@ public class Game
 	}
 	public int StartGameLoop()
 	{
-		System.out.println("Starting Hand...");
-		
+		ArrayList<Card> player1Hand = player1.getHand().getCards();
+		ArrayList<Card> player2Hand = player2.getHand().getCards();
+
+		System.out.println("---------------");
+		System.out.println("|Starting Hand|");
+		System.out.println("---------------");
+
+
 		//No limit hold 'em allows for arbitrary betting amounts greater than or equal to
 		//  the amount to 'call'. 
 		System.out.println("The rules are No-Limit Hold 'Em.");
@@ -114,9 +120,12 @@ public class Game
 		printChipTotal(player1,player2);
 		//Now that blinds are posted, betting round 1 begins.
 		//Minimum Bet = Small Blind.
-		System.out.println(player1.getName()+"s hand is: ");
+		System.out.print(player1.getName()+"'s hand is: ");
 		System.out.println(player1.getHand());
-		System.out.println("Beginning betting round 1...");
+
+		System.out.println("------------------");
+		System.out.println("|Starting Round 1|");
+		System.out.println("------------------");
 		
 		//If player 1 has the small blind, they go first before the flop.
 		if(smallBlind == 1)
@@ -128,7 +137,7 @@ public class Game
 				//The Computer wins
 				return 2;
 			}
-			Turn turn2 = new Turn(player2, player1);
+			Turn turn2 = new TurnComputer(player2, player1);
 			int results2 = turn2.takeTurn();
 			if(results2 == -1)
 			{
@@ -138,7 +147,7 @@ public class Game
 		}
 		else
 		{
-			Turn turn1 = new Turn(player2, player1);
+			Turn turn1 = new TurnComputer(player2, player1);
 			int results = turn1.takeTurn();
 			if(results == -1)
 			{
@@ -164,17 +173,29 @@ public class Game
 		communityCards.add(cards.get(0));
 		communityCards.add(cards.get(1));
 		communityCards.add(cards.get(2));
-		
-		
-		System.out.println("The Flop!");
+
+		player1Hand.add(cards.get(0));
+		player1Hand.add(cards.get(1));
+		player1Hand.add(cards.get(2));
+
+		player2Hand.add(cards.get(0));
+		player2Hand.add(cards.get(1));
+		player2Hand.add(cards.get(2));
+
+		System.out.println("-----------");
+		System.out.println("|The FLOP!|");
+		System.out.println("-----------");
+
 		printCommunityCards(communityCards);
 		printChipTotal(player1,player2);
 		//Round 2 Betting, the big blind player gets to bet first.
 		
-		System.out.println("Starting Round 2...");
+		System.out.println("------------------");
+		System.out.println("|Starting Round 2|");
+		System.out.println("------------------");
 		if(smallBlind == 1)
 		{
-			Turn turn3 = new Turn(player2, player1);
+			Turn turn3 = new TurnComputer(player2, player1);
 			int results = turn3.takeTurn();
 			if(results == -1)
 			{
@@ -201,7 +222,7 @@ public class Game
 			}
 			
 			
-			Turn turn4 = new Turn(player2, player1);
+			Turn turn4 = new TurnComputer(player2, player1);
 			int results2 = turn4.takeTurn();
 			if(results2 == -1)
 			{
@@ -218,16 +239,25 @@ public class Game
 		tempHand = deck.deal(1, 1);
 		cards = tempHand.get(0).getCards();
 		communityCards.add(cards.get(0));
+
+		player1Hand.add(cards.get(0));
+
+		player2Hand.add(cards.get(0));
 		
 
-		System.out.println("The Turn!");
+		System.out.println("-----------");
+		System.out.println("|The TURN!|");
+		System.out.println("-----------");
 		printCommunityCards(communityCards);
 		printChipTotal(player1,player2);
-		System.out.println("Starting Round 3...");
+
+		System.out.println("------------------");
+		System.out.println("|Starting Round 3|");
+		System.out.println("------------------");
 		
 		if(smallBlind == 1)
 		{
-			Turn turn5 = new Turn(player2, player1);
+			Turn turn5 = new TurnComputer(player2, player1);
 			int results = turn5.takeTurn();
 			if(results == -1)
 			{
@@ -252,7 +282,7 @@ public class Game
 				//The Computer Wins!
 				return 2;
 			}
-			Turn turn6 = new Turn(player2, player1);
+			Turn turn6 = new TurnComputer(player2, player1);
 			int results2 = turn6.takeTurn();
 			if(results2 == -1)
 			{
@@ -266,17 +296,26 @@ public class Game
 		
 		SoundPlayer.playSound(SoundPlayer.sound_river);
 		
-		System.out.println("The River!");
+		System.out.println("------------");
+		System.out.println("|The RIVER!|");
+		System.out.println("------------");
 		tempHand = deck.deal(1, 1);
 		cards = tempHand.get(0).getCards();
 		communityCards.add(cards.get(0));
+
+		player1Hand.add(cards.get(0));
+
+		player2Hand.add(cards.get(0));
+
 		printCommunityCards(communityCards);
 		printChipTotal(player1,player2);
 		
-		System.out.println("Starting Final Round of Betting!");
+		System.out.println("-----------------------");
+		System.out.println("|Starting Final Round!|");
+		System.out.println("-----------------------");
 		if(smallBlind == 1)
 		{
-			Turn turn7 = new Turn(player2, player1);
+			Turn turn7 = new TurnComputer(player2, player1);
 			int results = turn7.takeTurn();
 			if(results == -1)
 			{
@@ -301,7 +340,7 @@ public class Game
 				//The Computer Wins!
 				return 2;
 			}
-			Turn turn8 = new Turn(player2, player1);
+			Turn turn8 = new TurnComputer(player2, player1);
 			int results2 = turn8.takeTurn();
 			if(results2 == -1)
 			{
@@ -315,19 +354,6 @@ public class Game
 		//DECIDE WHO WINS HERE
 		//If computer has better hand, add a win for the computer(player2).
 		//If player has best hand, add a win for the player (player1)
-
-		ArrayList<Card> player1Hand = player1.getHand().getCards();
-		for(Card card: communityCards)
-		{
-			player1Hand.add(card);
-		}
-		
-
-		ArrayList<Card> player2Hand = player2.getHand().getCards();
-		for(Card card: communityCards)
-		{
-			player2Hand.add(card);
-		}
 		
 		PokerHandEvaluator evaluator = new PokerHandEvaluator(player1Hand);
 		PokerHandEvaluator evaluator2 = new PokerHandEvaluator(player2Hand);
@@ -342,9 +368,9 @@ public class Game
 		System.out.println(evaluator2.getBestHand());
 		if(evaluator.compareTo(evaluator2) > 0)
 		{
-			System.out.println(player1.getName()+" Wins!");
 			player1.winChips(chipsInPot);
 			chipsInPot = 0;
+			return 1;
 		}
 		else if(evaluator.compareTo(evaluator2) == 0)
 		{
@@ -355,9 +381,9 @@ public class Game
 		}
 		else
 		{
-			System.out.println(player2.getName()+" Wins!");
 			player2.winChips(chipsInPot);
 			chipsInPot = 0;
+			return 2;
 		}
 
 		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");

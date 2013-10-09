@@ -61,7 +61,8 @@ public class Card implements Comparable
 	@Override
 	public String toString()
 	{
-		return this.rank+" of "+this.suit+"S, with ID="+this.id;
+		return "[" + this.rank + " of "+ this.suit + "S]";
+		//+"S, with ID="+this.id;
 	}
 
 	/**

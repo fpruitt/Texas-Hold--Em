@@ -1,5 +1,4 @@
 package com.forrestpruitt.texas;
-
 import java.util.Scanner;
 
 public class Turn {
@@ -46,8 +45,11 @@ public class Turn {
 		if(answer == 0)
 		{
 			//Code for calling.
-			System.out.println(player.getName()+" Is calling. This adds "+amountToCall+" to the pot.");
-			player.betChips(amountToCall);
+			System.out.println(player.getName()+" is calling. This adds "+amountToCall+" to the pot.");
+			if(player.getNumOfChips() > amountToCall)
+			{
+				player.betChips(amountToCall);
+			}
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
 			Game.betToCall = 0;
@@ -65,7 +67,7 @@ public class Turn {
 				System.out.println("How much would you like to bet? (Min. Bet "+minBet+")");
 				System.out.println("(Your chip count: "+player.getNumOfChips()+")");
 				betAmount = in.nextInt();
-			}while(betAmount < 0 || betAmount > player.getNumOfChips());
+			}while(betAmount < minBet || betAmount > player.getNumOfChips());
 			
 			//Place Bet
 			System.out.println(player.getName()+" is betting "+betAmount);

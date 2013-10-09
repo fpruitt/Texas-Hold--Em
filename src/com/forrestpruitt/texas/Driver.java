@@ -134,8 +134,10 @@ public class Driver
 			{
 				SoundPlayer.playSound(SoundPlayer.sound_win);
 
+				player1.winGame();
 				System.out.println("You won!");
 				System.out.println("Your current stats are: ");
+				printStats(player1, gamesPlayed);
 				System.out.println("Would you like to play again? 1 for yes, 0 for no: ");
 				int ans = in.nextInt();
 				if(ans == 0)
@@ -145,6 +147,7 @@ public class Driver
 			{
 				SoundPlayer.playSound(SoundPlayer.sound_lose);
 
+				player2.winGame();
 				System.out.println("The computer won the game.");
 				System.out.println("Your current stats are: ");
 				printStats(player1, gamesPlayed);
@@ -164,9 +167,10 @@ public class Driver
 	
 	private static void printStats(Player player, int gamesPlayed)
 	{
-		System.out.println("Wins: "+ player.getWins());
-		System.out.println("Losses: "+ (gamesPlayed - player.getWins()));
-		System.out.println("Win Percentage: "+Math.round((player.getWins()/gamesPlayed))+"%");
+		System.out.println("> " + "Wins: "+ player.getWins());
+		System.out.println("> " + "Losses: "+ (gamesPlayed - player.getWins()));
+		//Currently rounds to nearest int. =(
+		System.out.println("> " + "Win Percentage: "+Math.round((player.getWins()/gamesPlayed))+"%");
 	}
 	
 }

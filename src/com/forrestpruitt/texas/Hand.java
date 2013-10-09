@@ -37,7 +37,7 @@ public class Hand
 		String returnString="";
 		for(Card card : this.hand)
 		{
-			returnString+=card.toString()+"\n";
+			returnString+=card.toString()+" ";
 		}
 		return returnString;
 	}
