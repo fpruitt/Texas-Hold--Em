@@ -80,6 +80,7 @@ public class Driver
 		int gamesPlayed = 0;
 		
 		boolean again = true;
+
 		while(again)
 		{
 			Game testGame = new Game(player1, player2);
@@ -94,6 +95,7 @@ public class Driver
 			//Handle endgame conditions
 			if(returnValue == -1)
 			{
+				gamesPlayed--;
 				System.out.println("You have run out of chips. ");
 				System.out.println("Press 1 to add more chips, 2 to quit");
 				int ans = in.nextInt();
@@ -106,14 +108,14 @@ public class Driver
 				else if(ans == 2)
 				{
 					System.out.println("Your final stats for this game were: ");
-					//Print stats here
+					printStats(player1, gamesPlayed);
 					System.out.println("Exiting...");
 					again = false;
 				}
 			}
 			else if(returnValue == -2)
 			{
-				System.out.println("The computer has run out of chips!");
+				gamesPlayed--;
 				System.out.println("Press 1 to give it more chips, or 2 to quit.");
 				int ans = in.nextInt();
 				if(ans == 1)
@@ -125,7 +127,7 @@ public class Driver
 				else if(ans == 2)
 				{
 					System.out.println("Your final stats for this game were: ");
-					//Print stats here
+					printStats(player1, gamesPlayed);
 					System.out.println("Exiting...");
 					again = false;
 				}
@@ -156,10 +158,28 @@ public class Driver
 				if(ans == 0)
 					again = false;
 			}
+			else if(returnValue == 3)
+			{
+				SoundPlayer.playSound(SoundPlayer.sound_win);
+
+				System.out.println("The computer won the game.");
+				System.out.println("Your current stats are: ");
+				printStats(player1, gamesPlayed);
+				System.out.println("Would you like to play again? 1 for yes, 0 for no: ");
+				int ans = in.nextInt();
+				if(ans == 0)
+					again = false;
+			}
 			
 			
 			//Reset static variables
 			Game.chipsInPot = 0;
+
+			player1.clearTotalBetThisRound();
+			player2.clearTotalBetThisRound();
+
+			player1.setIsAllIn(false);
+			player2.setIsAllIn(false);
 			//Game.betToCall = 0;
 		}
 		

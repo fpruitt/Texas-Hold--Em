@@ -18,10 +18,6 @@ public class Game
 	//Start with an initial pot size of 0.
 	public static int chipsInPot = 0;
 	
-	//Keep track of each player's amount bet
-	int player1TotalBet = 0;
-	int player2TotalBet = 0;
-	
 	//betToCall holds the number of chips required to add in order to call for the next player.
 	//The initial bet to call is the difference between the big blind and the small blind
 	//public static int betToCall = BIG_BLIND-SMALL_BLIND;
@@ -75,20 +71,29 @@ public class Game
 			System.out.println(player1.getName()+" has the Small Blind of "+SMALL_BLIND+" chips.");
 			System.out.println(player2.getName()+" has the Big Blind of "+BIG_BLIND+" chips.");
 			//Make sure both players can post their blinds.
-			if(player1.betChips(SMALL_BLIND) == false)
+			if(player1.getNumOfChips() < SMALL_BLIND)
 			{
 				System.out.println(player1.getName()+" has run out of chips!");
 				//Exit game loop, do something about lack of chips
 				return -1;
 			}
-			if(player2.betChips(BIG_BLIND) == false)
+			else
+			{
+				player1.betChips(SMALL_BLIND);
+			}
+
+			if(player2.getNumOfChips() < BIG_BLIND)
 			{
 				System.out.println(player2.getName()+" has run out of chips!");
+				player1.refundChips(SMALL_BLIND);
 				//Exit game loop, do something about lack of chips
 				return -2;
 			}
-			player1TotalBet+=SMALL_BLIND;
-			player2TotalBet+=BIG_BLIND;
+			else
+			{
+				player2.betChips(BIG_BLIND);
+			}
+
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 		}
@@ -98,20 +103,29 @@ public class Game
 			System.out.println(player1.getName()+" has the Big Blind of "+BIG_BLIND+" chips.");
 			
 			//Make sure both players can post their blinds.
-			if(player1.betChips(BIG_BLIND) == false)
+			if(player1.getNumOfChips() < BIG_BLIND)
 			{
 				System.out.println(player1.getName()+" has run out of chips!");
 				//Exit game loop, do something about lack of chips
 				return -1;
 			}
-			if(player2.betChips(SMALL_BLIND) == false)
+			else
+			{
+				player1.betChips(BIG_BLIND);
+			}
+
+			if(player2.getNumOfChips() < SMALL_BLIND)
 			{
 				System.out.println(player2.getName()+" has run out of chips!");
+				player1.refundChips(BIG_BLIND);
 				//Exit game loop, do something about lack of chips
 				return -2;
 			}
-			player1TotalBet+=BIG_BLIND;
-			player2TotalBet+=SMALL_BLIND;
+			else
+			{
+				player2.betChips(SMALL_BLIND);
+			}
+
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 		}
@@ -322,13 +336,15 @@ public class Game
 				//The Player Wins!
 				return 1;
 			}
-			
-			Turn turn8 = new Turn(player1, player2);
-			int results2 = turn8.takeTurn();
-			if(results2 == -1)
-			{
-				//The Computer Wins!
-				return 2;
+			else if(results == 2)
+			{	
+				Turn turn8 = new Turn(player1, player2);
+				int results2 = turn8.takeTurn();
+				if(results2 == -1)
+				{
+					//The Computer Wins!
+					return 2;
+				}
 			}
 		}
 		else
@@ -340,16 +356,20 @@ public class Game
 				//The Computer Wins!
 				return 2;
 			}
-			Turn turn8 = new TurnComputer(player2, player1);
-			int results2 = turn8.takeTurn();
-			if(results2 == -1)
+			else if(results == 2)
 			{
-				//The Player Wins!
-				return 1;
+				Turn turn8 = new TurnComputer(player2, player1);
+				int results2 = turn8.takeTurn();
+				if(results2 == -1)
+				{
+					//The Player Wins!
+					return 1;
+				}
 			}
 		}
-		
-		System.out.println("The Reveal...");
+		System.out.println("||||||||||||||||");
+		System.out.println("|<|The Reveal|>|");
+		System.out.println("||||||||||||||||");
 		
 		//DECIDE WHO WINS HERE
 		//If computer has better hand, add a win for the computer(player2).
@@ -378,18 +398,20 @@ public class Game
 			player1.winChips(chipsInPot/2);
 			player2.winChips(chipsInPot/2);
 			chipsInPot = 0;
+			return 3;
 		}
-		else
+		else if(evaluator.compareTo(evaluator2) < 0)
 		{
 			player2.winChips(chipsInPot);
 			chipsInPot = 0;
 			return 2;
 		}
 
-		player1.clearTotalBetThisRound();
-		player2.clearTotalBetThisRound();
+		//player1.clearTotalBetThisRound();
+		//player2.clearTotalBetThisRound();
 
-		System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+		//player1.setIsAllIn(false);
+		//player2.setIsAllIn(false);
 
 		//Exit Successfully
 		return 0;

@@ -26,7 +26,7 @@ public class Turn {
 		
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println(player.getName()+", Do you wish to call, bet, or fold?");
+		System.out.println(player.getName()+", Do you wish to call, bet, check, or fold?");
 		
 		int answer;
 		//Look for input until input an amount in the correct range.
@@ -35,7 +35,7 @@ public class Turn {
 		{
 			System.out.println("0 to call, 1 to bet, 2 to check, 3 to fold");
 			answer = in.nextInt();
-			if(answer ==2 && amountToCall != 0)
+			if(answer == 2 && amountToCall != 0 && !player.isAllIn())
 			{
 				System.out.println("You can't check, you must call the current bet, bet higher, or fold.");
 			}
@@ -43,17 +43,30 @@ public class Turn {
 			{
 				System.out.println("There isn't anything to call. Did you mean check?");
 			}
-		}while(answer < 0 || answer > 3 || (answer == 2 && amountToCall != 0) || (answer == 0 && amountToCall == 0));
+			if(answer == 1 && player.getNumOfChips() <= 0)
+			{
+				System.out.println("You don't have any chips to bet!");
+			}
+		}while(answer < 0 || answer > 3
+			   || ((answer == 2 && amountToCall != 0) && !player.isAllIn())
+			   || (answer == 0 && amountToCall == 0)
+			   || (answer == 1 && player.getNumOfChips() <= 0));
 		
 		
 		
 		if(answer == 0)
 		{
 			//Code for calling.
-			System.out.println(player.getName()+" is calling. This adds "+amountToCall+" to the pot.");
 			if(player.getNumOfChips() > amountToCall)
 			{
+				System.out.println(player.getName()+" is calling. This adds "+amountToCall+" to the pot.");
 				player.betChips(amountToCall);
+			}
+			else
+			{
+				System.out.println(player.getName() + " is going all in! This adds " + player.getNumOfChips()+ " to the pot!");
+				player.betChips(player.getNumOfChips());
+				player.setIsAllIn(true);
 			}
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
@@ -64,7 +77,7 @@ public class Turn {
 		{
 			//Code for placing a bet.
 			int minBet = amountToCall + Game.SMALL_BLIND;
-			
+
 			//Find out how much user wants to bet.
 			int betAmount;
 			do
@@ -72,19 +85,26 @@ public class Turn {
 				System.out.println("How much would you like to bet? (Min. Bet "+minBet+")");
 				System.out.println("(Your chip count: "+player.getNumOfChips()+")");
 				betAmount = in.nextInt();
+				if(betAmount > player.getNumOfChips())
+				{
+					System.out.println(player.getName() + " doesn't have that many chips!");
+				}
 			}while(betAmount < minBet || betAmount > player.getNumOfChips());
 			
 			//Place Bet
 			System.out.println(player.getName()+" is betting "+betAmount);
 			if(betAmount == player.getNumOfChips())
 			{
-				System.out.println(player.getName()+" is going all in!");
+				System.out.println(player.getName() + " is going all in! This adds " + player.getNumOfChips()+ " to the pot!");
+				player.setIsAllIn(true);
 			}
 			player.betChips(betAmount);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			
 			//Adjust the new amount the next player needs to call.
 			//Game.betToCall = betAmount - amountToCall;
+
+			return 2;
 			
 		}
 		else if(answer == 2)

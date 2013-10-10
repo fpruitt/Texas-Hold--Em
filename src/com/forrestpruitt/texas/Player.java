@@ -7,6 +7,8 @@ public class Player {
 	private Hand hand; //The Player's Hand
 	private int id; //Unique ID for player
 	private int numOfWins;
+
+	private boolean isAllIn = false;
 	
 	public int totalBetThisRound;
 	
@@ -63,6 +65,14 @@ public class Player {
 		else
 			return false;
 	}
+
+	public void refundChips(int chipsToRefund)
+	{
+		Game.chipsInPot -= chipsToRefund;
+		this.numOfChips += chipsToRefund;
+
+		totalBetThisRound -= chipsToRefund;
+	}
 	
 	public void winGame()
 	{
@@ -81,5 +91,15 @@ public class Player {
 	public void clearTotalBetThisRound()
 	{
 		totalBetThisRound = 0;
+	}
+
+	public boolean isAllIn()
+	{
+		return isAllIn;
+	}
+
+	public void setIsAllIn(boolean in)
+	{
+		isAllIn = in;
 	}
 }

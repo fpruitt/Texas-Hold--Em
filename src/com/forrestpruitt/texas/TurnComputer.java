@@ -28,8 +28,10 @@ public class TurnComputer extends Turn
 			chanceToFold -= 0.5 * Math.random();
 		}
 
-		//System.out.println(player.getName()+", Do you wish to call, bet, or fold?");
-		
+		//System.out.println(player.getName()+", Do you wish to call, bet, check, or fold?");
+
+		int betAmount = (int)(player.getNumOfChips() * ((1 - chanceToFold)/6.0));
+
 		int answer;
 		//Look for input until input an amount in the correct range.
 		//If they want to check, make sure the amountToCall is not 0, or they can't check.
@@ -37,24 +39,30 @@ public class TurnComputer extends Turn
 		{
 			//System.out.println("0 to call, 1 to bet, 2 to check, 3 to fold");
 			//Computer gives answer here
-			if(chanceToFold > .7 && player.getHand().getCards().size() > 2)
+			//if chance of folding is very high AND the game is past the flop AND the computer is not all in
+			if(chanceToFold > .7 && player.getHand().getCards().size() > 2 && !player.isAllIn())
 			{
 				answer = 3;
+				//System.out.println("Computer wants to fold");
 			}
-			else if(chanceToFold < .2)
+
+			else if(chanceToFold < .2 && player.getNumOfChips() > 0 && betAmount > amountToCall)
 			{
 				answer = 1;
+				//System.out.println("Computer wants to bet " + betAmount + " and thinks it has " + player.getNumOfChips());
 			}
-			else if(amountToCall == 0)
+			else if(amountToCall == 0 || player.isAllIn())
 			{
 				answer = 2;
+				//System.out.println("Computer wants to check and think it is " + player.isAllIn());
 			}
 			else
 			{
 				answer = 0;
+				//System.out.println("Computer wants to call and it thinks amount to call is " + amountToCall);
 			}
 
-			if(answer ==2 && amountToCall != 0)
+			if(answer == 2 && amountToCall != 0 && !player.isAllIn())
 			{
 				System.out.println("You can't check, you must call the current bet, bet higher, or fold.");
 			}
@@ -62,17 +70,30 @@ public class TurnComputer extends Turn
 			{
 				System.out.println("There isn't anything to call. Did you mean check?");
 			}
-		}while(answer < 0 || answer > 3 || (answer == 2 && amountToCall != 0) || (answer == 0 && amountToCall == 0));
+			if(answer == 1 && player.getNumOfChips() <= 0)
+			{
+				System.out.println("You don't have any chips to bet!");
+			}
+		}while(answer < 0 || answer > 3
+			   || ((answer == 2 && amountToCall != 0) && !player.isAllIn())
+			   || (answer == 0 && amountToCall == 0)
+			   || (answer == 1 && player.getNumOfChips() <= 0));
 		
 		
 		
 		if(answer == 0)
 		{
 			//Code for calling.
-			System.out.println(player.getName()+" is calling. This adds "+amountToCall+" to the pot.");
 			if(player.getNumOfChips() > amountToCall)
 			{
+				System.out.println(player.getName()+" is calling. This adds "+amountToCall+" to the pot.");
 				player.betChips(amountToCall);
+			}
+			else
+			{
+				System.out.println(player.getName() + " is going all in! This adds " + player.getNumOfChips()+ " to the pot!");
+				player.betChips(player.getNumOfChips());
+				player.setIsAllIn(true);
 			}
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
@@ -83,9 +104,11 @@ public class TurnComputer extends Turn
 		{
 			//Code for placing a bet.
 			int minBet = amountToCall + Game.SMALL_BLIND;
-			
+			System.out.println("Got here and amount to call is " + amountToCall);
+
 			//Find out how much user wants to bet.
-			int betAmount;
+			//int betAmount;
+
 			do
 			{
 				//System.out.println("How much would you like to bet? (Min. Bet "+minBet+")");
@@ -103,7 +126,8 @@ public class TurnComputer extends Turn
 			System.out.println(player.getName()+" is betting "+betAmount);
 			if(betAmount == player.getNumOfChips())
 			{
-				System.out.println(player.getName()+" is going all in!");
+				System.out.println(player.getName() + " is going all in! This adds " + player.getNumOfChips()+ " to the pot!");				
+				player.setIsAllIn(true);
 			}
 			player.betChips(betAmount);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
