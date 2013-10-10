@@ -55,6 +55,8 @@ public class TexasGUI extends javax.swing.JFrame {
         lblYourTurn = new javax.swing.JLabel();
         lblHand = new javax.swing.JLabel();
         wallpaper = new javax.swing.JLabel();
+        player1Name = new javax.swing.JLabel();
+        player2Name = new javax.swing.JLabel();
 
         dlgBet.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dlgBet.setAlwaysOnTop(true);
@@ -389,33 +391,35 @@ public class TexasGUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBet;
-    private javax.swing.JButton btnBetOK;
-    private javax.swing.JButton btnCall;
-    private javax.swing.JButton btnCheck;
-    private javax.swing.JButton btnFold;
-    private javax.swing.JLabel card1of5;
-    private javax.swing.JLabel card2of5;
-    private javax.swing.JLabel card3of5;
-    private javax.swing.JLabel card4of5;
-    private javax.swing.JLabel card5of5;
-    private javax.swing.JLabel cardOpponent1;
-    private javax.swing.JLabel cardOpponent2;
-    private javax.swing.JLabel cardUser1;
-    private javax.swing.JLabel cardUser2;
-    private javax.swing.JDialog dlgBet;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel lblHand;
-    private javax.swing.JLabel lblLosses;
-    private javax.swing.JLabel lblOpponentBank;
-    private javax.swing.JLabel lblOpponentBet;
-    private javax.swing.JLabel lblPot;
-    private javax.swing.JLabel lblUserBank;
-    private javax.swing.JLabel lblUserBet;
-    private javax.swing.JLabel lblWins;
-    private javax.swing.JLabel lblYourTurn;
-    private javax.swing.JTextField txtBetAmount;
-    private javax.swing.JLabel wallpaper;
+    public javax.swing.JButton btnBet;
+    public javax.swing.JButton btnBetOK;
+    public javax.swing.JButton btnCall;
+    public javax.swing.JButton btnCheck;
+    public javax.swing.JButton btnFold;
+    public javax.swing.JLabel card1of5;
+    public javax.swing.JLabel card2of5;
+    public javax.swing.JLabel card3of5;
+    public javax.swing.JLabel card4of5;
+    public javax.swing.JLabel card5of5;
+    public javax.swing.JLabel cardOpponent1;
+    public javax.swing.JLabel cardOpponent2;
+    public javax.swing.JLabel cardUser1;
+    public javax.swing.JLabel cardUser2;
+    public javax.swing.JDialog dlgBet;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel lblHand;
+    public javax.swing.JLabel lblLosses;
+    public javax.swing.JLabel lblOpponentBank;
+    public javax.swing.JLabel lblOpponentBet;
+    public javax.swing.JLabel lblPot;
+    public javax.swing.JLabel lblUserBank;
+    public javax.swing.JLabel lblUserBet;
+    public javax.swing.JLabel lblWins;
+    public javax.swing.JLabel lblYourTurn;
+    public javax.swing.JTextField txtBetAmount;
+    public javax.swing.JLabel wallpaper;
+    public javax.swing.JLabel player1Name;
+    public javax.swing.JLabel player2Name;
     // End of variables declaration//GEN-END:variables
 }

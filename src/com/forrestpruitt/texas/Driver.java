@@ -15,30 +15,6 @@ public class Driver
 	
 	public static void main(String args[])
 	{
-		/*
-		Card aCard = new Card(Rank.TWO, Suit.SPADE, 0);
-		Card bCard = new Card(Rank.ACE, Suit.HEART, 1);
-		Card cCard = new Card(Rank.FOUR, Suit.CLUB, 2);
-		Card dCard = new Card(Rank.FIVE, Suit.SPADE, 3);
-		Card eCard = new Card(Rank.SIX, Suit.SPADE, 4);
-		Card fCard = new Card(Rank.SEVEN, Suit.CLUB, 5);
-		Card gCard = new Card(Rank.ACE, Suit.DIAMOND, 6);
-
-		ArrayList<Card> aCardList = new ArrayList<Card>();
-		aCardList.add(aCard); aCardList.add(bCard); aCardList.add(cCard); 
-		aCardList.add(dCard); aCardList.add(eCard); aCardList.add(fCard); 
-		aCardList.add(gCard); 
-
-		PokerHandEvaluator evaluator = new PokerHandEvaluator(aCardList);
-
-		System.out.println(evaluator);
-		*/
-		
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -58,14 +34,14 @@ public class Driver
         //</editor-fold>
 
         /* Creates and displays the Texas GUI and sets the window to center screen */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                TexasGUI newGUI = new TexasGUI();
                newGUI.setVisible(true);
                //Sets the Texas GUI to center screen on open
                newGUI.setLocationRelativeTo(null);    
             }
-        });*/
+        });
 		
 		
 		
