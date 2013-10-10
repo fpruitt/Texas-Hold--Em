@@ -162,7 +162,7 @@ public class Driver
 			{
 				SoundPlayer.playSound(SoundPlayer.sound_win);
 
-				System.out.println("The computer won the game.");
+				System.out.println("You and the Computer tied!");
 				System.out.println("Your current stats are: ");
 				printStats(player1, gamesPlayed);
 				System.out.println("Would you like to play again? 1 for yes, 0 for no: ");
