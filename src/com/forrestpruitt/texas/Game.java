@@ -17,7 +17,7 @@ public class Game
 	
 	//Start with an initial pot size of 0.
 	public static int chipsInPot = 0;
-	TexasGui.lblPot = String.valueOf(chipsInPot);
+	
 
 	//betToCall holds the number of chips required to add in order to call for the next player.
 	//The initial bet to call is the difference between the big blind and the small blind

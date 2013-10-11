@@ -28,9 +28,8 @@ public class TexasGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         dlgBet = new javax.swing.JDialog();
-        jLabel1 = new javax.swing.JLabel();
+        betQuestion = new javax.swing.JLabel();
         txtBetAmount = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         btnBetOK = new javax.swing.JButton();
         lblLosses = new javax.swing.JLabel();
         lblWins = new javax.swing.JLabel();
@@ -66,8 +65,8 @@ public class TexasGUI extends javax.swing.JFrame {
         dlgBet.setPreferredSize(new java.awt.Dimension(200, 155));
         dlgBet.setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel1.setText("Please Enter A Bet:");
+        betQuestion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        betQuestion.setText("Please Enter A Bet:");
 
         txtBetAmount.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         txtBetAmount.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +74,6 @@ public class TexasGUI extends javax.swing.JFrame {
                 txtBetAmountActionPerformed(evt);
             }
         });
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel2.setText("$");
 
         btnBetOK.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnBetOK.setText("OK");
@@ -93,10 +89,9 @@ public class TexasGUI extends javax.swing.JFrame {
             dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dlgBetLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(betQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtBetAmount))
                 .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dlgBetLayout.createSequentialGroup()
@@ -108,15 +103,13 @@ public class TexasGUI extends javax.swing.JFrame {
             dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dlgBetLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(betQuestion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBetAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBetAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnBetOK, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
-        );
+        ));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Texas Hold 'Em");
@@ -293,7 +286,7 @@ public class TexasGUI extends javax.swing.JFrame {
         lblHand.setBounds(550, 203, 130, 30);
 
         wallpaper.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        wallpaper.setIcon(new javax.swing.ImageIcon("images/TexasTableFinal.png")); // NOI18N
+        wallpaper.setIcon(new javax.swing.ImageIcon("images/bg.png")); // NOI18N
         getContentPane().add(wallpaper);
         wallpaper.setBounds(0, -20, 690, 550);
 
@@ -310,6 +303,38 @@ public class TexasGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnFoldActionPerformed
 
+    public void startGame(Player player1, Player player2)
+    {
+    	card1of5.setVisible(false);
+    	card2of5.setVisible(false);
+    	card3of5.setVisible(false);
+    	card4of5.setVisible(false);
+    	card5of5.setVisible(false);
+        cardUser1.setVisible(false);
+        cardUser2.setVisible(false);
+        lblUserBank.setVisible(false);
+        lblHand.setVisible(false);
+        
+        lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
+        lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
+    	
+    }
+    
+    public void doFlop(Card card1, Card card2, Card card3)
+    {
+    	card1of5.setIcon(new ImageIcon(card1.getURL()));
+    	card2of5.setIcon(new ImageIcon(card2.getURL()));
+    	card3of5.setIcon(new ImageIcon(card3.getURL()));
+    }
+    public void doTurn(Card card1)
+    {
+    	card4of5.setIcon(new ImageIcon(card1.getURL()));
+    }
+    public void doRiver(Card card1)
+    {
+    	card5of5.setIcon(new ImageIcon(card1.getURL()));
+    }
+    
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         //This is how you toggle these labels on/off
         lblYourTurn.setVisible(true);
@@ -353,44 +378,6 @@ public class TexasGUI extends javax.swing.JFrame {
         dlgBet.hide();
     }//GEN-LAST:event_btnBetOKActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TexasGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TexasGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TexasGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TexasGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Creates and displays the Texas GUI and sets the window to center screen */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               TexasGUI newGUI = new TexasGUI();
-               newGUI.setVisible(true);
-               //Sets the Texas GUI to center screen on open
-               newGUI.setLocationRelativeTo(null);    
-            }
-        });
-    }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBet;
     public javax.swing.JButton btnBetOK;
     public javax.swing.JButton btnCall;
@@ -405,9 +392,13 @@ public class TexasGUI extends javax.swing.JFrame {
     public javax.swing.JLabel cardOpponent2;
     public javax.swing.JLabel cardUser1;
     public javax.swing.JLabel cardUser2;
+    
     public javax.swing.JDialog dlgBet;
-    public javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel2;
+    public javax.swing.JDialog dlgPlayerName;
+    public javax.swing.JDialog dlgChipStart;
+    
+    public javax.swing.JLabel betQuestion;
+
     public javax.swing.JLabel lblHand;
     public javax.swing.JLabel lblLosses;
     public javax.swing.JLabel lblOpponentBank;
@@ -421,5 +412,4 @@ public class TexasGUI extends javax.swing.JFrame {
     public javax.swing.JLabel wallpaper;
     public javax.swing.JLabel player1Name;
     public javax.swing.JLabel player2Name;
-    // End of variables declaration//GEN-END:variables
 }

@@ -39,10 +39,16 @@ public class Driver
                TexasGUI newGUI = new TexasGUI();
                newGUI.setVisible(true);
                //Sets the Texas GUI to center screen on open
-               newGUI.setLocationRelativeTo(null);    
+               newGUI.setLocationRelativeTo(null);
+               
+               //Temporary player construction
+               //Should get this info from player using dialog box.
+               Player player1 = new Player(666,"Temp",0);
+       		   Player player2 = new Player(666,"Computer",1);
+               
+               newGUI.startGame(player1,player2);
             }
         });
-		
 		
 		
 		Scanner in = new Scanner(System.in);
