@@ -12,6 +12,7 @@ import java.util.Collections;
 public class Driver
 {
 	public static ArrayList<Player> players = new ArrayList<Player>();
+	public static int gamesPlayed = 0;
 	
 	public static void main(String args[])
 	{
@@ -36,50 +37,50 @@ public class Driver
         /* Creates and displays the Texas GUI and sets the window to center screen */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               TexasGUI newGUI = new TexasGUI();
-               newGUI.setVisible(true);
-               //Sets the Texas GUI to center screen on open
-               newGUI.setLocationRelativeTo(null);
+
                
                //Temporary player construction
                //Should get this info from player using dialog box.
-               Player player1 = new Player(666,"Temp",0);
-       		   Player player2 = new Player(666,"Computer",1);
-               
-               newGUI.startGame(player1,player2);
+       			int numOfStartingChips = 2000;
+    			Player player1 = new Player(numOfStartingChips,"Kathy",0);
+    			Player player2 = new Player(numOfStartingChips,"Computer",1);
+    			
+    			Game testGame = new Game(player1, player2);
+                TexasGUI newGUI = new TexasGUI(testGame, player1, player2);
+                newGUI.setVisible(true);
+                //Sets the Texas GUI to center screen on open
+                newGUI.setLocationRelativeTo(null);
+                //newGUI.startGame(player1,player2, testGame);
+                
+                
             }
         });
-		
-		
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter your name: ");
-		String playerName = in.nextLine();
-		System.out.println("Enter number of starting chips: ");
-		int numOfStartingChips = in.nextInt();
-		Player player1 = new Player(numOfStartingChips,playerName,0);
-		Player player2 = new Player(numOfStartingChips,"Computer",1);
-		
-		int gamesPlayed = 0;
-		
-		boolean again = true;
 
+
+		
+		
+        /*
+		boolean again = true;
+		
+		
 		while(again)
 		{
-			Game testGame = new Game(player1, player2);
+			
 		
 			//If StartGameLoop returns -1, the human player ran out of chips.
 			//If StartGameLoop returns -2, the computer player ran out of chips.
 			//If it returns 1, the human player won.
 			//If it returns 2, the computer player won.
-			int returnValue = testGame.StartGameLoop();
-			gamesPlayed++;
 			
+
 			//Handle endgame conditions
 			if(returnValue == -1)
 			{
 				gamesPlayed--;
 				System.out.println("You have run out of chips. ");
 				System.out.println("Press 1 to add more chips, 2 to quit");
+				
+
 				int ans = in.nextInt();
 				if(ans == 1)
 				{
@@ -164,7 +165,7 @@ public class Driver
 			player2.setIsAllIn(false);
 			//Game.betToCall = 0;
 		}
-		
+		*/
 	}
 	
 	private static void printStats(Player player, int gamesPlayed)

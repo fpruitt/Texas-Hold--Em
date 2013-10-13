@@ -14,7 +14,14 @@ public class TexasGUI extends javax.swing.JFrame {
     /**
      * Creates new form TexasGUI
      */
-    public TexasGUI() {
+	Game game;
+	Player player1;
+	Player player2;
+	
+    public TexasGUI(Game game, Player player1, Player player2) {
+        this.game = game;
+        this.player1 = player1;
+        this.player2 = player2;
         initComponents();
     }
 
@@ -56,7 +63,11 @@ public class TexasGUI extends javax.swing.JFrame {
         wallpaper = new javax.swing.JLabel();
         player1Name = new javax.swing.JLabel();
         player2Name = new javax.swing.JLabel();
+        lblPlayer1Blind = new javax.swing.JLabel();
+        lblPlayer2Blind = new javax.swing.JLabel();
+        
 
+        //Set up the Bet Dialog Box
         dlgBet.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dlgBet.setAlwaysOnTop(true);
         dlgBet.setLocationByPlatform(true);
@@ -64,17 +75,14 @@ public class TexasGUI extends javax.swing.JFrame {
         dlgBet.setMinimumSize(new java.awt.Dimension(200, 155));
         dlgBet.setPreferredSize(new java.awt.Dimension(200, 155));
         dlgBet.setResizable(false);
-
         betQuestion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         betQuestion.setText("Please Enter A Bet:");
-
         txtBetAmount.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         txtBetAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBetAmountActionPerformed(evt);
             }
         });
-
         btnBetOK.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnBetOK.setText("OK");
         btnBetOK.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +90,6 @@ public class TexasGUI extends javax.swing.JFrame {
                 btnBetOKActionPerformed(evt);
             }
         });
-
         javax.swing.GroupLayout dlgBetLayout = new javax.swing.GroupLayout(dlgBet.getContentPane());
         dlgBet.getContentPane().setLayout(dlgBetLayout);
         dlgBetLayout.setHorizontalGroup(
@@ -111,6 +118,8 @@ public class TexasGUI extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         ));
 
+        
+        //The main GUI window
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Texas Hold 'Em");
         setMinimumSize(new java.awt.Dimension(695, 530));
@@ -118,49 +127,64 @@ public class TexasGUI extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
+        lblPlayer1Blind.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblPlayer1Blind.setForeground(new java.awt.Color(255, 255, 255));
+        lblPlayer1Blind.setText("Big Blind");
+        lblPlayer1Blind.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        getContentPane().add(lblPlayer1Blind);
+        lblPlayer1Blind.setBounds(450, 75, 100, 30);
+        
+        lblPlayer2Blind.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblPlayer2Blind.setForeground(new java.awt.Color(255, 255, 255));
+        lblPlayer2Blind.setText("Big Blind");
+        lblPlayer2Blind.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        getContentPane().add(lblPlayer2Blind);
+        lblPlayer2Blind.setBounds(450, 410, 100, 30);
+        
+        
         lblLosses.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblLosses.setForeground(new java.awt.Color(255, 255, 255));
-        lblLosses.setText("0");
+        lblLosses.setText(String.valueOf(player1.getLosses()));
         lblLosses.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(lblLosses);
         lblLosses.setBounds(100, 30, 30, 30);
 
         lblWins.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblWins.setForeground(new java.awt.Color(255, 255, 255));
-        lblWins.setText("0");
+        lblWins.setText(String.valueOf(player1.getWins()));
         getContentPane().add(lblWins);
         lblWins.setBounds(100, 13, 40, 30);
 
         lblUserBank.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblUserBank.setForeground(new java.awt.Color(255, 255, 255));
-        lblUserBank.setText("395");
+        lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
         lblUserBank.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(lblUserBank);
         lblUserBank.setBounds(323, 440, 60, 20);
 
         lblOpponentBet.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblOpponentBet.setForeground(new java.awt.Color(255, 255, 255));
-        lblOpponentBet.setText("395");
+        lblOpponentBet.setText(String.valueOf(player2.getTotalBetThisRound()));
         getContentPane().add(lblOpponentBet);
         lblOpponentBet.setBounds(510, 43, 70, 20);
 
         lblOpponentBank.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblOpponentBank.setForeground(new java.awt.Color(255, 255, 255));
-        lblOpponentBank.setText("395");
+        lblOpponentBank.setText(String.valueOf(player2.getNumOfChips()));
         lblOpponentBank.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(lblOpponentBank);
         lblOpponentBank.setBounds(325, 110, 60, 20);
 
         lblPot.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblPot.setForeground(new java.awt.Color(255, 255, 255));
-        lblPot.setText("395");
+        lblPot.setText(String.valueOf(Game.chipsInPot));
         lblPot.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(lblPot);
         lblPot.setBounds(324, 279, 80, 20);
 
         lblUserBet.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblUserBet.setForeground(new java.awt.Color(255, 255, 255));
-        lblUserBet.setText("395");
+        lblUserBet.setText("0");
         lblUserBet.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         getContentPane().add(lblUserBet);
         lblUserBet.setBounds(509, 375, 80, 20);
@@ -209,115 +233,125 @@ public class TexasGUI extends javax.swing.JFrame {
         getContentPane().add(btnBet);
         btnBet.setBounds(345, 470, 70, 30);
 
+        
         cardOpponent1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        cardOpponent1.setIcon(new javax.swing.ImageIcon("images/b1fv.png")); // NOI18N
+        cardOpponent1.setIcon(new javax.swing.ImageIcon("images/cardBgBlue.png")); // NOI18N
         cardOpponent1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         cardOpponent1.setAlignmentY(0.0F);
         getContentPane().add(cardOpponent1);
         cardOpponent1.setBounds(255, 9, 71, 100);
 
-        cardOpponent2.setIcon(new javax.swing.ImageIcon("images/b1fv.png")); // NOI18N
+        cardOpponent2.setIcon(new javax.swing.ImageIcon("images/cardBgBlue.png")); // NOI18N
         cardOpponent2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(cardOpponent2);
         cardOpponent2.setBounds(343, 9, 71, 100);
 
         card1of5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        card1of5.setIcon(new javax.swing.ImageIcon("images/6.png")); // NOI18N
+        card1of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png")); // NOI18N
         card1of5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         card1of5.setAlignmentY(0.0F);
         getContentPane().add(card1of5);
         card1of5.setBounds(124, 166, 72, 100);
 
         card2of5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        card2of5.setIcon(new javax.swing.ImageIcon("images/7.png")); // NOI18N
+        card2of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png")); // NOI18N
         card2of5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         card2of5.setAlignmentY(0.0F);
         getContentPane().add(card2of5);
         card2of5.setBounds(211, 166, 72, 100);
 
         card3of5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        card3of5.setIcon(new javax.swing.ImageIcon("images/8.png")); // NOI18N
+        card3of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png")); // NOI18N
         card3of5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         card3of5.setAlignmentY(0.0F);
         getContentPane().add(card3of5);
         card3of5.setBounds(298, 166, 72, 100);
 
         card4of5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        card4of5.setIcon(new javax.swing.ImageIcon("images/9.png")); // NOI18N
+        card4of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png")); // NOI18N
         card4of5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         card4of5.setAlignmentY(0.0F);
         getContentPane().add(card4of5);
         card4of5.setBounds(385, 166, 72, 100);
 
         card5of5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        card5of5.setIcon(new javax.swing.ImageIcon("images/5.png")); // NOI18N
+        card5of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png")); // NOI18N
         card5of5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         card5of5.setAlignmentY(0.0F);
         getContentPane().add(card5of5);
         card5of5.setBounds(471, 166, 72, 100);
+        
 
+        
         cardUser1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         cardUser1.setIcon(new javax.swing.ImageIcon("images/21.png")); // NOI18N
         cardUser1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         cardUser1.setAlignmentY(0.0F);
         getContentPane().add(cardUser1);
         cardUser1.setBounds(253, 338, 72, 100);
-
+        cardUser1.setVisible(false);
+        
         cardUser2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         cardUser2.setIcon(new javax.swing.ImageIcon("images/23.png")); // NOI18N
         cardUser2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         cardUser2.setAlignmentY(0.0F);
         getContentPane().add(cardUser2);
         cardUser2.setBounds(341, 338, 72, 100);
+        cardUser2.setVisible(false);
 
         lblYourTurn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblYourTurn.setForeground(new java.awt.Color(204, 255, 0));
-        lblYourTurn.setText("  Your Turn!");
+        lblYourTurn.setText(" Your Turn!");
         lblYourTurn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 0), 2));
         lblYourTurn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblYourTurn);
         lblYourTurn.setBounds(292, 310, 80, 21);
+        lblYourTurn.setVisible(false);
 
         lblHand.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblHand.setForeground(new java.awt.Color(204, 255, 0));
-        lblHand.setText(" Straight Royal Flush!");
+        lblHand.setText("(Hand Prints Out Here)");
         lblHand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 0), 2));
         getContentPane().add(lblHand);
         lblHand.setBounds(550, 203, 130, 30);
+        lblHand.setVisible(false);
+        
 
         wallpaper.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         wallpaper.setIcon(new javax.swing.ImageIcon("images/bg.png")); // NOI18N
         getContentPane().add(wallpaper);
         wallpaper.setBounds(0, -20, 690, 550);
+        
+        updateLabels();
+        
+        
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
         //this is how you change the card icons (this code should not stay here) 
-        card1of5.setIcon(new ImageIcon("images/10.png"));
-        card2of5.setIcon(new ImageIcon("images/20.png"));
-        card3of5.setIcon(new ImageIcon("images/30.png"));
-        card4of5.setIcon(new ImageIcon("images/40.png"));
-        card5of5.setIcon(new ImageIcon("images/50.png"));
+        card1of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card2of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card3of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card4of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card5of5.setIcon(new ImageIcon("images/cardBgRed"));
         
     }//GEN-LAST:event_btnFoldActionPerformed
 
-    public void startGame(Player player1, Player player2)
+    
+    public void startGame(Player player1, Player player2, Game game)
     {
-    	card1of5.setVisible(false);
-    	card2of5.setVisible(false);
-    	card3of5.setVisible(false);
-    	card4of5.setVisible(false);
-    	card5of5.setVisible(false);
         cardUser1.setVisible(false);
         cardUser2.setVisible(false);
-        lblUserBank.setVisible(false);
         lblHand.setVisible(false);
+        lblYourTurn.setVisible(false);
         
         lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
         lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
     	
+        int returnType = game.StartGameLoop();
+        
     }
     
     public void doFlop(Card card1, Card card2, Card card3)
@@ -334,6 +368,17 @@ public class TexasGUI extends javax.swing.JFrame {
     {
     	card5of5.setIcon(new ImageIcon(card1.getURL()));
     }
+    public void updateLabels()
+    {
+    	lblLosses.setText(String.valueOf(player1.getLosses()));
+    	lblWins.setText(String.valueOf(player1.getWins()));
+    	lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
+    	lblOpponentBet.setText(String.valueOf(player2.getTotalBetThisRound()));
+    	lblOpponentBank.setText(String.valueOf(player2.getNumOfChips()));
+    	lblPot.setText(String.valueOf(game.chipsInPot));
+    	lblUserBet.setText(String.valueOf(player1.getTotalBetThisRound()));
+    }
+    
     
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         //This is how you toggle these labels on/off
@@ -392,6 +437,8 @@ public class TexasGUI extends javax.swing.JFrame {
     public javax.swing.JLabel cardOpponent2;
     public javax.swing.JLabel cardUser1;
     public javax.swing.JLabel cardUser2;
+    public javax.swing.JLabel lblPlayer1Blind;
+    public javax.swing.JLabel lblPlayer2Blind;
     
     public javax.swing.JDialog dlgBet;
     public javax.swing.JDialog dlgPlayerName;

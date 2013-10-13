@@ -7,10 +7,11 @@ public class Player {
 	private Hand hand; //The Player's Hand
 	private int id; //Unique ID for player
 	private int numOfWins;
-
+	private int numOfLosses;
 	private boolean isAllIn = false;
 	
 	public int totalBetThisRound;
+
 	
 	public Player(int startingChips, String playerName, int id)
 	{
@@ -18,6 +19,9 @@ public class Player {
 		this.name=playerName;
 		this.id = id;
 		totalBetThisRound = 0;
+		
+		numOfWins = 0;
+		numOfLosses = 0;
 	}
 	
 	public String getName()
@@ -78,9 +82,17 @@ public class Player {
 	{
 		numOfWins++;
 	}
+	public void loseGame()
+	{
+		numOfLosses++;
+	}
 	public int getWins()
 	{
 		return numOfWins;
+	}
+	public int getLosses()
+	{
+		return numOfLosses;
 	}
 
 	public int getTotalBetThisRound()
