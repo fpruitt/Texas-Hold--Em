@@ -104,11 +104,6 @@ public class Player {
 		return totalBetThisRound;
 	}
 
-	public void clearTotalBetThisRound()
-	{
-		totalBetThisRound = 0;
-	}
-
 	public boolean isAllIn()
 	{
 		return isAllIn;

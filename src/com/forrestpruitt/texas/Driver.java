@@ -135,7 +135,7 @@ public class Driver
 			else
 			{
 				player1.betChips(game.SMALL_BLIND);
-				System.out.println("Player betting "+game.SMALL_BLIND);
+				System.out.println("Player calling for blind: "+game.SMALL_BLIND);
 			}
 
 			if(player2.getNumOfChips() < game.BIG_BLIND)
@@ -148,17 +148,17 @@ public class Driver
 				{
 					return true;
 				}
-			}
-			
+			}	
 			else
 			{
 				player2.betChips(game.BIG_BLIND);
-				System.out.println("Computer betting "+game.BIG_BLIND);
+				System.out.println("Computer calling for blind: "+game.BIG_BLIND);
 			}
 
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 		}
+    	
 		else
 		{
 			//Player 1 has the big blind.
@@ -195,8 +195,21 @@ public class Driver
 
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
+			System.out.println("Total Bets: PC:"+player2.totalBetThisRound +" Human:"+player1.totalBetThisRound);
+
 		}
     	
+    	//Sanity check:
+    	if(game.smallBlind == 1)
+    	{
+    		player1.totalBetThisRound = 5;
+    		player2.totalBetThisRound = 10;
+    	}
+    	else
+    	{
+    		player1.totalBetThisRound = 10;
+    		player2.totalBetThisRound = 15;
+    	}
     	//************
     	// ROUND 1
     	//************
@@ -524,6 +537,10 @@ public class Driver
         
         public static boolean cpuTurn(Player player1, Player player2)
         {
+        	Driver.amountToCall = Driver.player1.getTotalBetThisRound() -Driver. player2.getTotalBetThisRound();
+        	if(Driver.amountToCall < 0)
+        		Driver.amountToCall = 0;
+        	System.out.println("Amount for CPU to call on its turn: "+Driver.amountToCall);
     		Turn computerTurn1 = new TurnComputer(player2, player1);
     		int results = computerTurn1.takeTurn();
     		if(results == -1)

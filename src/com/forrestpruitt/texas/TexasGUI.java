@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Nater
+ * @author Forrest Pruitt
  */
 public class TexasGUI extends javax.swing.JFrame {
 
@@ -40,6 +41,13 @@ public class TexasGUI extends javax.swing.JFrame {
     	lblHand.setVisible(false);
     	cardOpponent1.setIcon(new javax.swing.ImageIcon("images/cardBgBlue.png"));
     	cardOpponent2.setIcon(new javax.swing.ImageIcon("images/cardBgBlue.png"));
+    	
+    	Driver.player1.totalBetThisRound = 0;
+    	Driver.player2.totalBetThisRound = 0;
+    	Driver.player1.setIsAllIn(false);
+    	Driver.player1.setIsAllIn(false);
+    	Driver.game.chipsInPot = 0;
+    	updateLabels();
     }
 
     /**
@@ -541,6 +549,7 @@ public class TexasGUI extends javax.swing.JFrame {
 		{
 			System.out.println(Driver.player1.getName()+" is calling. This adds "+Driver.amountToCall+" to the pot.");
 			Driver.player1.betChips(Driver.amountToCall);
+			System.out.println(Driver.player1.totalBetThisRound+" PC: "+Driver.player2.totalBetThisRound);
 		}
 		else
 		{
@@ -548,8 +557,6 @@ public class TexasGUI extends javax.swing.JFrame {
 			player1.setIsAllIn(true);
 		}
 		SoundPlayer.playSound(SoundPlayer.sound_betting);
-		Driver.amountToCall = 0;
-		player1.totalBetThisRound = 0;
 		btnCall.setEnabled(false);
 		updateLabels();
 		Driver.endTurn(0);

@@ -12,11 +12,12 @@ public class TurnComputer extends Turn
 	{
 		//Determine the amount needed to call
 		//int amountToCall = Game.betToCall;
-		int amountToCall = opponent.getTotalBetThisRound() - player.getTotalBetThisRound();
+		int amountToCall = Driver.amountToCall;
 		if(amountToCall < 0)
 		{
 			amountToCall = 0;
 		}
+		System.out.println("Total Bets: PC:"+player.totalBetThisRound +" Human:"+opponent.totalBetThisRound);
 		
 		double chanceToFold = 1.0 * Math.random();
 		if(player.getHand().getCards().get(0).getRank() == player.getHand().getCards().get(1).getRank())
@@ -97,8 +98,8 @@ public class TurnComputer extends Turn
 			}
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
-			player.clearTotalBetThisRound();
 			//Game.betToCall = 0;
+			Driver.amountToCall = 0;
 			return 0;
 		}
 		else if(answer == 1)
@@ -131,6 +132,7 @@ public class TurnComputer extends Turn
 				player.setIsAllIn(true);
 			}
 			player.betChips(betAmount);
+			Driver.amountToCall = betAmount-amountToCall;
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			
 			//Adjust the new amount the next player needs to call.
@@ -143,7 +145,7 @@ public class TurnComputer extends Turn
 			System.out.println(player.getName()+" is checking.");
 			//If you can get here, you SHOULD be able to always pass this assertation.
 			//assert(Game.betToCall == 0);
-			player.clearTotalBetThisRound();
+			Driver.amountToCall = 0;
 			return 0;
 			
 		}
