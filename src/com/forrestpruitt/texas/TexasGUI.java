@@ -142,6 +142,7 @@ public class TexasGUI extends javax.swing.JFrame {
         //The main GUI window
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Texas Hold 'Em");
+        setIconImage(new javax.swing.ImageIcon("images/icon-64x64.png").getImage());
         setMinimumSize(new java.awt.Dimension(695, 530));
         setPreferredSize(new java.awt.Dimension(695, 530));
         setResizable(false);
