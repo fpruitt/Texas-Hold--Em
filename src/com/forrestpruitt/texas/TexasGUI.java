@@ -94,16 +94,16 @@ public class TexasGUI extends javax.swing.JFrame {
         dlgBet.setMaximumSize(new java.awt.Dimension(200, 155));
         dlgBet.setMinimumSize(new java.awt.Dimension(200, 155));
         dlgBet.setPreferredSize(new java.awt.Dimension(200, 155));
-        dlgBet.setResizable(false);
-        betQuestion.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        dlgBet.setResizable(true);
+        betQuestion.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         betQuestion.setText("Please Enter A Bet:");
-        txtBetAmount.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        txtBetAmount.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         txtBetAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBetAmountActionPerformed(evt);
             }
         });
-        btnBetOK.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnBetOK.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btnBetOK.setText("OK");
         btnBetOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,11 +120,11 @@ public class TexasGUI extends javax.swing.JFrame {
                 .addGroup(dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(betQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtBetAmount))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dlgBetLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBetOK)
-                .addGap(66, 66, 66))
+                .addGap(10, 10, 10))
         );
         dlgBetLayout.setVerticalGroup(
             dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,8 +134,8 @@ public class TexasGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dlgBetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(txtBetAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnBetOK, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
+                .addComponent(btnBetOK, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         ));
 
         
@@ -175,12 +175,6 @@ public class TexasGUI extends javax.swing.JFrame {
         lblWins.setText(String.valueOf(player1.getWins()));
         getContentPane().add(lblWins);
         lblWins.setBounds(100, 13, 40, 30);
-
-        lblPlayerWins.setFont(new java.awt.Font("Calibri", 1, 18));
-        lblPlayerWins.setForeground(new java.awt.Color(0,0,255));
-        lblPlayerWins.setText("You Win!!!");
-        lblPlayerWins.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        lblWins.setBounds(400,300,100,30);
         
         lblUserBank.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblUserBank.setForeground(new java.awt.Color(255, 255, 255));
