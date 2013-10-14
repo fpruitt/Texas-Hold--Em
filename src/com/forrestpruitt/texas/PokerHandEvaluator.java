@@ -25,8 +25,10 @@ public class PokerHandEvaluator
 
 		ArrayList<Card> dynamicPokerHand = new ArrayList<Card>();
 
-		dynamicPokerHand.add(0, cardList.get(0)); dynamicPokerHand.add(1, cardList.get(1));
-		dynamicPokerHand.add(2, cardList.get(2)); dynamicPokerHand.add(3, cardList.get(3));
+		dynamicPokerHand.add(0, cardList.get(0)); 
+		dynamicPokerHand.add(1, cardList.get(1));
+		dynamicPokerHand.add(2, cardList.get(2)); 
+		dynamicPokerHand.add(3, cardList.get(3));
 		dynamicPokerHand.add(4, cardList.get(4)); 
 		PokerHand pokerHand0 = new PokerHand(dynamicPokerHand);
 		pokerHandsToReturn.add(pokerHand0);

@@ -45,7 +45,11 @@ public class Player {
 	{
 		return this.hand;
 	}
-	
+	/**
+	 * Award chips to this player's current pot.
+	 * Does not increment wins; should be done externally by calling Player.winGame()
+	 * @param chipsWon The number of chips to add to the player's collection of chips.
+	 */
 	public void winChips(int chipsWon)
 	{
 		this.numOfChips += chipsWon;

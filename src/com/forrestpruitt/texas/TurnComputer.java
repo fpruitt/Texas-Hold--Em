@@ -97,6 +97,7 @@ public class TurnComputer extends Turn
 			}
 			SoundPlayer.playSound(SoundPlayer.sound_betting);
 			System.out.println("The pot has "+Game.chipsInPot+" chips.");
+			player.clearTotalBetThisRound();
 			//Game.betToCall = 0;
 			return 0;
 		}
@@ -142,6 +143,7 @@ public class TurnComputer extends Turn
 			System.out.println(player.getName()+" is checking.");
 			//If you can get here, you SHOULD be able to always pass this assertation.
 			//assert(Game.betToCall == 0);
+			player.clearTotalBetThisRound();
 			return 0;
 			
 		}

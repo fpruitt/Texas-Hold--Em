@@ -4,7 +4,10 @@
  */
 
 package com.forrestpruitt.texas;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Nater
@@ -17,12 +20,26 @@ public class TexasGUI extends javax.swing.JFrame {
 	Game game;
 	Player player1;
 	Player player2;
+	boolean isPlayer1Turn;
 	
     public TexasGUI(Game game, Player player1, Player player2) {
         this.game = game;
         this.player1 = player1;
         this.player2 = player2;
         initComponents();
+    }
+    
+    public void newGame(Game game)
+    {
+    	this.game = game;
+    	card1of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png"));
+    	card2of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png"));
+    	card3of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png"));
+    	card4of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png"));
+    	card5of5.setIcon(new javax.swing.ImageIcon("images/cardBgRed.png"));
+    	lblHand.setVisible(false);
+    	cardOpponent1.setIcon(new javax.swing.ImageIcon("images/cardBgBlue.png"));
+    	cardOpponent2.setIcon(new javax.swing.ImageIcon("images/cardBgBlue.png"));
     }
 
     /**
@@ -33,7 +50,9 @@ public class TexasGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	
+    	isPlayer1Turn = false;
+    	communityCards = new ArrayList<Card>();
         dlgBet = new javax.swing.JDialog();
         betQuestion = new javax.swing.JLabel();
         txtBetAmount = new javax.swing.JTextField();
@@ -65,11 +84,12 @@ public class TexasGUI extends javax.swing.JFrame {
         player2Name = new javax.swing.JLabel();
         lblPlayer1Blind = new javax.swing.JLabel();
         lblPlayer2Blind = new javax.swing.JLabel();
-        
+        lblAmountToCall = new javax.swing.JLabel();
+        lblPlayerWins = new javax.swing.JLabel();
 
         //Set up the Bet Dialog Box
         dlgBet.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        dlgBet.setAlwaysOnTop(true);
+        dlgBet.setAlwaysOnTop(false);
         dlgBet.setLocationByPlatform(true);
         dlgBet.setMaximumSize(new java.awt.Dimension(200, 155));
         dlgBet.setMinimumSize(new java.awt.Dimension(200, 155));
@@ -126,6 +146,7 @@ public class TexasGUI extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(695, 530));
         setResizable(false);
         getContentPane().setLayout(null);
+        
 
         lblPlayer1Blind.setFont(new java.awt.Font("Calibri", 1, 18));
         lblPlayer1Blind.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,6 +176,12 @@ public class TexasGUI extends javax.swing.JFrame {
         getContentPane().add(lblWins);
         lblWins.setBounds(100, 13, 40, 30);
 
+        lblPlayerWins.setFont(new java.awt.Font("Calibri", 1, 18));
+        lblPlayerWins.setForeground(new java.awt.Color(0,0,255));
+        lblPlayerWins.setText("You Win!!!");
+        lblPlayerWins.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lblWins.setBounds(400,300,100,30);
+        
         lblUserBank.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblUserBank.setForeground(new java.awt.Color(255, 255, 255));
         lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
@@ -181,6 +208,14 @@ public class TexasGUI extends javax.swing.JFrame {
         lblPot.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(lblPot);
         lblPot.setBounds(324, 279, 80, 20);
+        
+        lblAmountToCall.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblAmountToCall.setForeground(new java.awt.Color(255, 255, 255));
+        lblAmountToCall.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        getContentPane().add(lblAmountToCall);
+        lblAmountToCall.setBounds(220, 295, 200, 20);
+        lblAmountToCall.setText("Amount to Call: ");
+        //lblAmountToCall.setVisible(false);
 
         lblUserBet.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblUserBet.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,9 +232,12 @@ public class TexasGUI extends javax.swing.JFrame {
                 btnFoldActionPerformed(evt);
             }
         });
+        btnFold.setEnabled(false);
         getContentPane().add(btnFold);
         btnFold.setBounds(437, 470, 80, 30);
 
+        
+        
         btnCheck.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnCheck.setForeground(new java.awt.Color(0, 51, 255));
         btnCheck.setText("CHECK");
@@ -208,6 +246,7 @@ public class TexasGUI extends javax.swing.JFrame {
                 btnCheckActionPerformed(evt);
             }
         });
+        btnFold.setEnabled(false);
         getContentPane().add(btnCheck);
         btnCheck.setBounds(137, 470, 90, 30);
 
@@ -219,6 +258,7 @@ public class TexasGUI extends javax.swing.JFrame {
                 btnCallActionPerformed(evt);
             }
         });
+        btnCall.setEnabled(false);
         getContentPane().add(btnCall);
         btnCall.setBounds(251, 470, 70, 30);
 
@@ -230,6 +270,7 @@ public class TexasGUI extends javax.swing.JFrame {
                 btnBetActionPerformed(evt);
             }
         });
+        btnBet.setEnabled(false);
         getContentPane().add(btnBet);
         btnBet.setBounds(345, 470, 70, 30);
 
@@ -305,7 +346,7 @@ public class TexasGUI extends javax.swing.JFrame {
         lblYourTurn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 0), 2));
         lblYourTurn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblYourTurn);
-        lblYourTurn.setBounds(292, 310, 80, 21);
+        lblYourTurn.setBounds(292, 312, 80, 21);
         lblYourTurn.setVisible(false);
 
         lblHand.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -329,31 +370,6 @@ public class TexasGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
-        //this is how you change the card icons (this code should not stay here) 
-        card1of5.setIcon(new ImageIcon("images/cardBgRed"));
-        card2of5.setIcon(new ImageIcon("images/cardBgRed"));
-        card3of5.setIcon(new ImageIcon("images/cardBgRed"));
-        card4of5.setIcon(new ImageIcon("images/cardBgRed"));
-        card5of5.setIcon(new ImageIcon("images/cardBgRed"));
-        
-    }//GEN-LAST:event_btnFoldActionPerformed
-
-    
-    public void startGame(Player player1, Player player2, Game game)
-    {
-        cardUser1.setVisible(false);
-        cardUser2.setVisible(false);
-        lblHand.setVisible(false);
-        lblYourTurn.setVisible(false);
-        
-        lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
-        lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
-    	
-        int returnType = game.StartGameLoop();
-        
-    }
-    
     public void doFlop(Card card1, Card card2, Card card3)
     {
     	card1of5.setIcon(new ImageIcon(card1.getURL()));
@@ -368,28 +384,180 @@ public class TexasGUI extends javax.swing.JFrame {
     {
     	card5of5.setIcon(new ImageIcon(card1.getURL()));
     }
+    
     public void updateLabels()
     {
-    	lblLosses.setText(String.valueOf(player1.getLosses()));
-    	lblWins.setText(String.valueOf(player1.getWins()));
-    	lblUserBank.setText(String.valueOf(player1.getNumOfChips()));
-    	lblOpponentBet.setText(String.valueOf(player2.getTotalBetThisRound()));
-    	lblOpponentBank.setText(String.valueOf(player2.getNumOfChips()));
-    	lblPot.setText(String.valueOf(game.chipsInPot));
-    	lblUserBet.setText(String.valueOf(player1.getTotalBetThisRound()));
+    	lblLosses.setText(String.valueOf(Driver.player1.getLosses()));
+    	lblWins.setText(String.valueOf(Driver.player1.getWins()));
+    	lblUserBank.setText(String.valueOf(Driver.player1.getNumOfChips()));
+    	lblOpponentBet.setText(String.valueOf(Driver.player2.getTotalBetThisRound()));
+    	lblOpponentBank.setText(String.valueOf(Driver.player2.getNumOfChips()));
+    	lblPot.setText(String.valueOf(Game.chipsInPot));
+    	lblUserBet.setText(String.valueOf(Driver.player1.getTotalBetThisRound()));
+    	lblAmountToCall.setText(String.valueOf("Amount to call: "+Driver.amountToCall));
+    }
+    public void showOpponentsHand(Card card1, Card card2)
+    {
+    	cardOpponent1.setIcon(new javax.swing.ImageIcon(card1.getURL()));
+    	cardOpponent2.setIcon(new javax.swing.ImageIcon(card2.getURL()));
+    }
+    /**
+     * 
+     * @param player1
+     * @return 0 to continue and add 200 chips, -1 to exit the game.
+     */
+    public int showPlayerOutOfChips()
+    {
+    	Object[] options = {"Yes, please", "No, thanks"};
+    	int ans = JOptionPane.showOptionDialog(getContentPane(),
+				"You have run out of chips. Would you like to add 200 more to keep going?",
+				"Add More Chips?",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[1]);
+    	if(ans == 0)
+		{
+			//Add 200 chips to player 1
+			return 0;
+			
+			//TODO: Add reset code here
+			
+		}
+		else
+		{
+			return -1;
+		}
     }
     
+    public int showComputerOutOfChips()
+    {
+    	Object[] options = {"Yes, please", "No, thanks"};
+		int ans = JOptionPane.showOptionDialog(getContentPane(),
+				"Your opponent has run out of chips. Would you like to add 200 more to keep going?",
+				"Add More Chips?",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[1]);
+		if(ans == 0)
+		{
+			//Add 200 chips to player 1
+			return 0;
+			
+			//TODO: Add reset code here
+			
+		}
+		else
+		{
+			return -1;
+		}
+    }
+    
+    public int showPlayer1Win()
+    {
+    	Object[] options = {"Yes, please", "No, thanks"};
+    	
+    	int ans = JOptionPane.showOptionDialog(getContentPane(),
+				"You have won! Would you like to play again?",
+				"Play Again?",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[1]);
+		
+		if(ans == 0)
+		{
+			//Player wants to play again
+			//TODO Reset Game Code Goes Here
+			return 0;
+		}
+		else
+		{
+			//Player wants to quit.
+			return -1;
+    	}
+    	
+    }
+    
+    public int showPlayer2Win()
+    {
+    	Object[] options = {"Yes, please", "No, thanks"};
+    	
+		int ans = JOptionPane.showOptionDialog(getContentPane(),
+		"You have lost. Would you like to play again?",
+		"Play Again?",
+		JOptionPane.YES_NO_CANCEL_OPTION,
+		JOptionPane.QUESTION_MESSAGE,
+		null,
+		options,
+		options[1]);
+		
+		if(ans == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return -1;
+    	}
+    }
+    
+    public int showTie()
+    {
+    	Object[] options = {"Yes, please", "No, thanks"};
+    	int ans = JOptionPane.showOptionDialog(getContentPane(),
+				"You have tied with the computer. Would you like to play again?",
+				"Play Again?",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[1]);
+				
+				if(ans == 0)
+				{
+					return 0;
+				}
+				else
+				{
+					return -1;
+		    	}
+    }
+   
     
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        //This is how you toggle these labels on/off
-        lblYourTurn.setVisible(true);
-        lblHand.setVisible(true);
+        //Preconditions: That it is Player 1 (human player's) turn
+    	//				 That there isn't an amount to call.
+    	
+    	//TODO: Put code here to end user's turn, start computer's turn.
+    	updateLabels();
+        Driver.endTurn(0);
     }//GEN-LAST:event_btnCheckActionPerformed
 
     private void btnCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCallActionPerformed
-        //This is how you toggle these labels on/off
-        lblYourTurn.setVisible(false);
-        lblHand.setVisible(false);
+        //Preconditions: That it is Player 1 (human player's) turn
+    	//				 That the amount to call is positive, non-zero.
+    	//Code for calling.
+		if(Driver.player1.getNumOfChips() > Driver.amountToCall)
+		{
+			System.out.println(Driver.player1.getName()+" is calling. This adds "+Driver.amountToCall+" to the pot.");
+			Driver.player1.betChips(Driver.amountToCall);
+		}
+		else
+		{
+			player1.betChips(player1.getNumOfChips());
+			player1.setIsAllIn(true);
+		}
+		SoundPlayer.playSound(SoundPlayer.sound_betting);
+		Driver.amountToCall = 0;
+		player1.totalBetThisRound = 0;
+		btnCall.setEnabled(false);
+		updateLabels();
+		Driver.endTurn(0);
     }//GEN-LAST:event_btnCallActionPerformed
 
     private void btnBetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBetActionPerformed
@@ -403,60 +571,89 @@ public class TexasGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBetAmountActionPerformed
 
     private void btnBetOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBetOKActionPerformed
-       /*
-        * Very important: Since you cannot place an int into the text of a label,
-        * you have to place a string in it every time. The time when you take
-        * the string value OUT of the label to do a calculation (e.g. add a bet
-        * amount to the pot) if when you must force the text to an int using this line of code:
-        * int betAmount = Integer.parseInt(txtBetAmount.getText());
+        //TODO Could use some error checking here
+    	int betAmount = Integer.parseInt(txtBetAmount.getText());
+
+		if(betAmount < Game.SMALL_BLIND)
+		{
+    		JOptionPane.showMessageDialog(getContentPane(), ("Does not meet minimum bet of "+Game.SMALL_BLIND));
+    		txtBetAmount.setText(null);
+		}
+    	else if(player1.getNumOfChips() < betAmount)
+    	{
+    		JOptionPane.showMessageDialog(getContentPane(), ("You only have "+player1.getNumOfChips()+" chips!"));
+	    	txtBetAmount.setText(null);
+	    }
+	    else
+	    {
+	    	player1.betChips(betAmount);
+	    	dlgBet.setVisible(false);
+	    	updateLabels();
+	    	Driver.endTurn(0);
+	    }
+		
+  
+    	
+    }
+    
+	/**
+	 * 
+	 * @param evt The event that spawned this message.
+	 * @return 0 if the player wants to play again, -1 if they want to quit.
+	 */
+    private void btnFoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoldActionPerformed
+        //this is how you change the card icons (this code should not stay here) 
+        /*card1of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card2of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card3of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card4of5.setIcon(new ImageIcon("images/cardBgRed"));
+        card5of5.setIcon(new ImageIcon("images/cardBgRed"));
         */
+    	
+    	//Custom button text
+    	updateLabels();
+    	Driver.endTurn(2);
         
-        /*This example code shows how, when you click the OK button, to take a
-         * string from a text box and replace the text on a label elsewhere on
-         * the GUI. It then clears the string from the original text box and
-         * hides the window until next use.
-         * 
-        */
-        String betAmount = txtBetAmount.getText();
-        lblPot.setText(betAmount);
-        txtBetAmount.setText(null);
-        dlgBet.hide();
-    }//GEN-LAST:event_btnBetOKActionPerformed
-
-    public javax.swing.JButton btnBet;
-    public javax.swing.JButton btnBetOK;
-    public javax.swing.JButton btnCall;
-    public javax.swing.JButton btnCheck;
-    public javax.swing.JButton btnFold;
-    public javax.swing.JLabel card1of5;
-    public javax.swing.JLabel card2of5;
-    public javax.swing.JLabel card3of5;
-    public javax.swing.JLabel card4of5;
-    public javax.swing.JLabel card5of5;
-    public javax.swing.JLabel cardOpponent1;
-    public javax.swing.JLabel cardOpponent2;
-    public javax.swing.JLabel cardUser1;
-    public javax.swing.JLabel cardUser2;
-    public javax.swing.JLabel lblPlayer1Blind;
-    public javax.swing.JLabel lblPlayer2Blind;
+    }//GEN-LAST:event_btnFoldActionPerformed
     
-    public javax.swing.JDialog dlgBet;
-    public javax.swing.JDialog dlgPlayerName;
-    public javax.swing.JDialog dlgChipStart;
+    public static javax.swing.JButton btnBet;
+    public static javax.swing.JButton btnBetOK;
+    public static javax.swing.JButton btnCall;
+    public static javax.swing.JButton btnCheck;
+    public static javax.swing.JButton btnFold;
+    public static javax.swing.JLabel card1of5;
+    public static javax.swing.JLabel card2of5;
+    public static javax.swing.JLabel card3of5;
+    public static javax.swing.JLabel card4of5;
+    public static javax.swing.JLabel card5of5;
+    public static javax.swing.JLabel cardOpponent1;
+    public static javax.swing.JLabel cardOpponent2;
+    public static javax.swing.JLabel cardUser1;
+    public static javax.swing.JLabel cardUser2;
+    public static javax.swing.JLabel lblPlayer1Blind;
+    public static javax.swing.JLabel lblPlayer2Blind;
+    public static javax.swing.JLabel lblPlayerWins;
     
-    public javax.swing.JLabel betQuestion;
+    public static javax.swing.JDialog dlgBet;
+    public static javax.swing.JDialog dlgPlayerName;
+    public static javax.swing.JDialog dlgChipStart;
+    
+    public static javax.swing.JLabel betQuestion;
 
-    public javax.swing.JLabel lblHand;
-    public javax.swing.JLabel lblLosses;
-    public javax.swing.JLabel lblOpponentBank;
-    public javax.swing.JLabel lblOpponentBet;
-    public javax.swing.JLabel lblPot;
-    public javax.swing.JLabel lblUserBank;
-    public javax.swing.JLabel lblUserBet;
-    public javax.swing.JLabel lblWins;
-    public javax.swing.JLabel lblYourTurn;
-    public javax.swing.JTextField txtBetAmount;
-    public javax.swing.JLabel wallpaper;
-    public javax.swing.JLabel player1Name;
-    public javax.swing.JLabel player2Name;
+    public static javax.swing.JLabel lblHand;
+    public static javax.swing.JLabel lblLosses;
+    public static javax.swing.JLabel lblOpponentBank;
+    public static javax.swing.JLabel lblOpponentBet;
+    public static javax.swing.JLabel lblPot;
+    public static javax.swing.JLabel lblUserBank;
+    public static javax.swing.JLabel lblUserBet;
+    public static javax.swing.JLabel lblWins;
+    public static javax.swing.JLabel lblYourTurn;
+    public static javax.swing.JTextField txtBetAmount;
+    public static javax.swing.JLabel wallpaper;
+    public static javax.swing.JLabel player1Name;
+    public static javax.swing.JLabel player2Name;
+    public static javax.swing.JLabel lblAmountToCall;
+    
+    ArrayList<Card> communityCards;
 }

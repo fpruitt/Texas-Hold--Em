@@ -407,11 +407,6 @@ public class Game
 			return 2;
 		}
 
-		//player1.clearTotalBetThisRound();
-		//player2.clearTotalBetThisRound();
-
-		//player1.setIsAllIn(false);
-		//player2.setIsAllIn(false);
 
 		//Exit Successfully
 		return 0;
