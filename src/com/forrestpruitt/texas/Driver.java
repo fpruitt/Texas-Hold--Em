@@ -20,6 +20,7 @@ public class Driver
 	public static Player player2;
 	public static Game game;
 	public static TexasGUI gui;
+	public static boolean shouldReset = false;
 	
 	public static void main(String args[])
 	{
@@ -76,7 +77,11 @@ public class Driver
 
 	public static boolean isPlayer1Turn = false;
     public static int amountToCall;
-    static void gameLoop()
+    /**
+     * 
+     * @return true to play again, false to quit.
+     */
+    static boolean gameLoop()
     {
     	
     	//Place the label for 'small blind' and 'big blind' appropriately
@@ -121,7 +126,11 @@ public class Driver
 			{
 				//Player 1 has run out of chips.
 				//Exit game loop, do something about lack of chips
-				endTurn(-1);
+				int returnCode = endTurn(-1);
+				if(returnCode == 1)
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -134,7 +143,11 @@ public class Driver
 				//Player 2 is out of chips.
 				//player1.refundChips(game.SMALL_BLIND); //<-- Uncertain about this? TODO: Ask Paul.
 				//Exit game loop, do something about lack of chips
-				endTurn(-2);
+				int returnCode = endTurn(-2);
+				if(returnCode == 1)
+				{
+					return true;
+				}
 			}
 			
 			else
@@ -154,7 +167,11 @@ public class Driver
 			{
 				//Player 1 has run out of chips.
 				//Exit game loop, do something about lack of chips
-				endTurn(-1);
+				int returnCode = endTurn(-1);
+				if(returnCode == 1)
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -165,7 +182,11 @@ public class Driver
 			{
 				//player1.refundChips(game.BIG_BLIND);
 				//Exit game loop, do something about lack of chips
-				endTurn(-2);
+				int returnCode = endTurn(-2);
+				if(returnCode == 1)
+				{
+					return true;
+				}
 			}
 			else
 			{
@@ -180,7 +201,11 @@ public class Driver
     	// ROUND 1
     	//************
     	//If player 1 has the small blind, they go first before the flop.
-		takeTurn();
+    	
+    	//If takeTurn() returns true, the game should reset.
+		boolean returnBool  = takeTurn();
+		if(returnBool)
+			return true;
 		
 		//******************
 		// ROUND 2: THE FLOP
@@ -206,7 +231,9 @@ public class Driver
 		}
 		
 		//Play the next two rounds of betting
-		takeTurn();
+		returnBool  = takeTurn();
+		if(returnBool)
+			return true;
 		
 		//******************
 		// ROUND 3: THE TURN
@@ -226,7 +253,9 @@ public class Driver
 			isPlayer1Turn = true;
 		}
 		
-		takeTurn();
+		returnBool  = takeTurn();
+		if(returnBool)
+			return true;
 		
 		//******************
 		// ROUND 4: THE RIVER
@@ -245,7 +274,9 @@ public class Driver
 			isPlayer1Turn = true;
 		}
 
-			takeTurn();
+		returnBool  = takeTurn();
+		if(returnBool)
+			return true;
 		
 		//**************************
 		// THE REVEAL
@@ -287,7 +318,12 @@ public class Driver
 			SoundPlayer.playSound(SoundPlayer.sound_win);
 			gui.lblHand.setText(evaluator.getBestHand().getHandType().toString());
 			gui.lblHand.setVisible(true);
-			endTurn(1);
+			int returnCode = endTurn(1);
+			if(returnCode == 1)
+			{
+				System.out.println("Game resetting...");
+				return true;
+			}
 			
 		}
 		else if(evaluator.compareTo(evaluator2) < 0)
@@ -295,19 +331,34 @@ public class Driver
 			SoundPlayer.playSound(SoundPlayer.sound_lose);
 			gui.lblHand.setText(evaluator2.getBestHand().getHandType().toString());
 			gui.lblHand.setVisible(true);
-			endTurn(2);
+			int returnCode = endTurn(2);
+			if(returnCode == 1)
+			{
+				System.out.println("Game resetting...");
+				return true;
+			}
+			
 		}	
 		else if(evaluator.compareTo(evaluator2) == 0)
 		{
 			SoundPlayer.playSound(SoundPlayer.sound_win);
 			gui.lblHand.setText("Tie with: "+evaluator2.getBestHand().getHandType().toString());
 			gui.lblHand.setVisible(true);
-			endTurn(3);
+			int returnCode = endTurn(3);
+			if(returnCode == 1)
+			{
+				System.out.println("Game resetting...");
+				return true;
+			}
 		}
+		return true;
     }
-    	
-
-        public static void endTurn(int statusCode)
+    	/**
+    	 * 
+    	 * @param statusCode
+    	 * @return 0 if game continues, -1 if game should quit, 1 if the game should reset.
+    	 */
+        public static int endTurn(int statusCode)
         {
             
         	
@@ -333,6 +384,7 @@ public class Driver
         			isPlayer1Turn = false;
         		}
         		gui.updateLabels();
+        		return 0;
         	}
         	else if(statusCode == -1)
         	{
@@ -341,12 +393,13 @@ public class Driver
         		if(response == 0)
         		{
         			player1.winChips(200);
+        			return 0;
         		}
         		else
         		{
         			System.exit(0);
+        			return -1;
         		}
-        		gui.updateLabels();
         	}
         	else if(statusCode == -2)
         	{
@@ -356,12 +409,14 @@ public class Driver
         		{
         			//Add 200 chips to player 2
         			player2.winChips(200);
+        			return 0;
         			
         			//TODO: Add reset code here
         		}
         		else
         		{
         			System.exit(0);
+        			return -1;
         		}
         	}
         	
@@ -375,13 +430,13 @@ public class Driver
     			int response = gui.showPlayer1Win();
     			if(response == 0)
     			{
+    				return 1;
     				//TODO add reset game code here.
     			}
     			else
     			{
-    				System.exit(0);
+    				return -1;
     			}
-    			gui.updateLabels();
         		
         	}
         	
@@ -394,13 +449,13 @@ public class Driver
            		int response = gui.showPlayer2Win();
     			if(response == 0)
     			{
-    				//TODO add reset game code here.
+    				return 1;
     			}
     			else
     			{
     				System.exit(0);
+    				return -1;
     			}
-    			gui.updateLabels();
         	}
         	
         	else if(statusCode == 3)
@@ -415,51 +470,85 @@ public class Driver
         		int response = gui.showTie();
     			if(response == 0)
     			{
-    				//TODO add reset game code here.
+    				return 1;
     			}
     			else
     			{
     				System.exit(0);
+    				return -1;
     			}
-    			gui.updateLabels();
         	}
         	
         	else
         	{
         		System.out.println("Invalid status code received: \""+statusCode+"\"");
+        		return -3;
         	}
         }
         
-        public static void takeTurn()
+        /**
+         * 
+         * @return True if game should reset.
+         */
+        public static boolean takeTurn()
         {
     		if(isPlayer1Turn)
     		{
 
-    			guiTurn(gui, player1, player2);
-    			cpuTurn(player1, player2);
+    			boolean resetBool = guiTurn(gui, player1, player2);
+    			if(resetBool)
+    			{
+    				return true;
+    			}
+    			boolean returnCode = cpuTurn(player1, player2);
+    			if(returnCode == true)
+    			{
+    				return true;
+    			}
     		}
     		else
     		{
-    			cpuTurn(player1, player2);
-    			guiTurn(gui, player1, player2);
+    			boolean returnCode = cpuTurn(player1, player2);
+    			if(returnCode == true)
+    			{
+    				return true;
+    			}
+    			boolean resetBool = guiTurn(gui, player1, player2);
+    			if(resetBool)
+    			{
+    				return true;
+    			}
     		}
+    		return false;
         }
         
-        public static void cpuTurn(Player player1, Player player2)
+        public static boolean cpuTurn(Player player1, Player player2)
         {
     		Turn computerTurn1 = new TurnComputer(player2, player1);
     		int results = computerTurn1.takeTurn();
     		if(results == -1)
     		{
     			//The player wins because the computer folded.
-    			endTurn(1);
+    			int returnCode = endTurn(1);
+    			if(returnCode == 1)
+    			{
+    				System.out.println("Game resetting...");
+    				return true;
+    			}
     		}
     		else
     			endTurn(0);
+    		return false;
         }
 
-        
-    	private static void guiTurn(TexasGUI gui, Player player1, Player player2)
+        /**
+         * 
+         * @param gui
+         * @param player1
+         * @param player2
+         * @return true if game should reset, false otherwise.
+         */
+    	private static boolean guiTurn(TexasGUI gui, Player player1, Player player2)
     	{
     		gui.lblYourTurn.setVisible(true);
     		//Figure out if there is an outstanding bet to call
@@ -500,124 +589,20 @@ public class Driver
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+        		if(shouldReset == true)
+        		{
+        			System.out.println("Should be resetting...");
+        			shouldReset = false;
+        			return true;
+        		}
     		}
     		//Make sure it's no longer player 1's turn.
     		assert(isPlayer1Turn == false);
+    		return false;
+
     		
     	}
-    	
 
-
-		
-		
-        /*
-		boolean again = true;
-		
-		
-		while(again)
-		{
-			
-		
-			//If StartGameLoop returns -1, the human player ran out of chips.
-			//If StartGameLoop returns -2, the computer player ran out of chips.
-			//If it returns 1, the human player won.
-			//If it returns 2, the computer player won.
-			
-
-			//Handle endgame conditions
-			if(returnValue == -1)
-			{
-				gamesPlayed--;
-				System.out.println("You have run out of chips. ");
-				System.out.println("Press 1 to add more chips, 2 to quit");
-				
-
-				int ans = in.nextInt();
-				if(ans == 1)
-				{
-					System.out.println("Enter the number of chips you would like to add: ");
-					int chips = in.nextInt();
-					player1.winChips(chips);
-				}
-				else if(ans == 2)
-				{
-					System.out.println("Your final stats for this game were: ");
-					printStats(player1, gamesPlayed);
-					System.out.println("Exiting...");
-					again = false;
-				}
-			}
-			else if(returnValue == -2)
-			{
-				gamesPlayed--;
-				System.out.println("Press 1 to give it more chips, or 2 to quit.");
-				int ans = in.nextInt();
-				if(ans == 1)
-				{
-					System.out.println("Enter the number of chips you would like to add: ");
-					int chips = in.nextInt();
-					player2.winChips(chips);
-				}
-				else if(ans == 2)
-				{
-					System.out.println("Your final stats for this game were: ");
-					printStats(player1, gamesPlayed);
-					System.out.println("Exiting...");
-					again = false;
-				}
-			}
-			else if(returnValue == 1)
-			{
-				SoundPlayer.playSound(SoundPlayer.sound_win);
-
-				player1.winGame();
-				System.out.println("You won!");
-				System.out.println("Your current stats are: ");
-				printStats(player1, gamesPlayed);
-				System.out.println("Would you like to play again? 1 for yes, 0 for no: ");
-				int ans = in.nextInt();
-				if(ans == 0)
-					again = false;
-			}
-			else if(returnValue == 2)
-			{
-				SoundPlayer.playSound(SoundPlayer.sound_lose);
-
-				player2.winGame();
-				System.out.println("The computer won the game.");
-				System.out.println("Your current stats are: ");
-				printStats(player1, gamesPlayed);
-				System.out.println("Would you like to play again? 1 for yes, 0 for no: ");
-				int ans = in.nextInt();
-				if(ans == 0)
-					again = false;
-			}
-			else if(returnValue == 3)
-			{
-				SoundPlayer.playSound(SoundPlayer.sound_win);
-
-				System.out.println("You and the Computer tied!");
-				System.out.println("Your current stats are: ");
-				printStats(player1, gamesPlayed);
-				System.out.println("Would you like to play again? 1 for yes, 0 for no: ");
-				int ans = in.nextInt();
-				if(ans == 0)
-					again = false;
-			}
-			
-			
-			//Reset static variables
-			Game.chipsInPot = 0;
-
-			player1.clearTotalBetThisRound();
-			player2.clearTotalBetThisRound();
-
-			player1.setIsAllIn(false);
-			player2.setIsAllIn(false);
-			//Game.betToCall = 0;
-		}
-		*/
-	
 	private static void printStats(Player player, int gamesPlayed)
 	{
 		System.out.println("> " + "Wins: "+ player.getWins());

@@ -607,7 +607,11 @@ public class TexasGUI extends javax.swing.JFrame {
     	
     	//Custom button text
     	updateLabels();
-    	Driver.endTurn(2);
+    	int returnCode = Driver.endTurn(2);
+    	if(returnCode == 1)
+    	{
+    		Driver.shouldReset=true;
+    	}
         
     }//GEN-LAST:event_btnFoldActionPerformed
     
